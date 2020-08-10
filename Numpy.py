@@ -168,12 +168,15 @@ y
 
 random.permutation(y) #same as shuffle, but leaves the original array intact
 
+I = 5000
+%time mat2 = np.random.standard_normal((I , I))
+%time mat2.sum()
+%timeit y.sum()
 
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 sns.distplot([0, 1, 2, 3, 3, 3, 6]) #distribution plot
-
 #%% normal distribution
 random.normal() #normal distribution, gaussian for 0, 1 
 random.normal(0, 1, size = (10, 10))
@@ -218,42 +221,78 @@ sns.distplot(random.logistic(loc = 0, scale =1, size = 1000), hist= False, label
 
 sns.distplot(random.exponential(scale = 2, size = (10, 10)))
 
-#%% Vectorization
+#%% Vectorization - ufuncs
 
+a = [1, 2, 3, 4]
+b = [10, 20, 30, 40]
+z = []
 
-
-
-
-I = 5000
-
-%time mat2 = np.random.standard_normal((I , I))
-%time mat2.sum()
-%timeit r.sum()
-
-s = np.random.standard_normal((4, 3))
-r = np.random.standard_normal((4, 3))
-
-
-import matplotlib.pyplot as plt
-
-def f(x):
-    return np.sin(x) + 0.5 * x
-
-x = np.linspace(-2 * np.pi, 2 * np.pi, 50)
-x
-f(x)
-
-plt.plot(x, f(x))
-plt.grid(True)
-plt.xlabel('x')
-plt.ylabel('f(x)')
-plt.show()
-
-test = np.random.randint(0, 10, (4,3))
+## without vectors we can add to vectors together like:
+for i, j in zip(a, b):
+    print(i)
+    print(j)
     
-for i in range(len(test)):
-    print(test[i])
- 
+for i, j in zip(a, b):
+    z.append(i + j)
+print(z)
 
-        
+## vectorization 
+a + b # does not work 
+np.array(a) + np.array(b) #works better
+np.add(a, b) #works the same
+
+np.multiply(a, b)
+np.array(a).dot(np.array(b))
+np.add(a, b)
+np.sum([a, b, a, b, b], axis = 0)
+np.sum([a, b, a, b, b], axis = 1)
+np.cumsum(a)
+np.prod(a) #product
+np.cumprod(a)
+np.subtract(a, b)
+np.diff([10, 15, 21 ])
+np.diff([10, 15, 25, 5 ], n=2) #2nd difference
+np.divide(a, b)
+np.power(a, b)
+np.mod(a, b)
+np.remainder(a, b) #same as mod
+np.divmod(a, b)
+np.absolute(np.array(a)* (-1))
+
+# custom ufunc
+
+def myfunction(x, y):
+    return x * y + 3 
+
+multiply = np.frompyfunc(myfunction, 2, 1)
+
+multiply(a, b)
+
+type(multiply)
+type(np.concatenate)
+
+# rounding decimals
+np.trunc(100.654898)
+np.fix(100.654898)
+np.round([100.66489754646, 45.654, 1.6], 2)
+np.floor(100.9)
+np.ceil(100.1)
+
+np.log(10)
+np.log2(4)
+np.log10(100)
+np.arange(1, 10)
+
+d = 6
+f = 4
+np.lcm(d, f) # finding lowest common multipl
+np.gcd(d, f) # greatest common denominator
+
+a.append(6)
+a, d
+np.union1d(a, d) #union set of two arrays
+np.unique([2, 3, 2]) #unique
+np.intersect1d([2, 3], [2])
+np.setdiff1d(a, d)
+np.setxor1d(a, d)  #values that are NOT present in BOTH sets      
         
