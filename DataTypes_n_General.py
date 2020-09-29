@@ -1,5 +1,4 @@
 ##%  Playing with the Code and miscellaneous
-
 ' tips and tricks: pres Tab after writing a dot after an object to get help
 
 import this
@@ -13,13 +12,15 @@ help() #Access Python's own help system.
 
 pip list #list all the packages installed on your system:
 
+import camelcase
+pip install camelcase    
+pip uninstall camelcase
+
 %time 2+5 #    Time execution of a Python statement or expression.
 
-"""
-Indentation: The number of spaces is up to you as a programmer, but it has to be at least one. 
-"""
+'''Indentation: The number of spaces is up to you as a programmer, but it has to be at least one. '''
 
-aa = input("vek:")
+print(input("vek:"))
 
 #In Python, variables are created when you assign a value to it: 
 x, y, z = "Orange", "Banana", "Cherry"
@@ -40,11 +41,11 @@ try:
     print(10/0)
 except:
     print("error vole")
-    
-    
+ 
+      
 try:
-    print(1/0)
-   # print(w)
+    #print(1/0)
+   print(w)
 except ZeroDivisionError:
     print("error: cant divide by zero")
       
@@ -71,8 +72,7 @@ Any number is True, except 0.
 Any list, tuple, set, and dictionary are True, except empty ones.
 """
 
-bool(a)
-
+bool(a) #but not defined returns error
 
 """Identity operators are used to compare the objects, 
 not if they are equal, but if they are actually the same object, with the same memory location: """
@@ -91,6 +91,7 @@ b is a
 """
 
 # a recommendation for a "default" style exists for Python, the PEP 8 (PEP = Python Enchancement Proposal)
+# https://www.python.org/dev/peps/pep-0008/
 
 a = 990
 type(a)
@@ -108,6 +109,16 @@ Boolean Type: 	bool
 Binary Types: 	bytes, bytearray, memoryview
 '''
 
+all([1==1, 2==2, 3==4]) # returns true if all is true
+any([1==1, 2>5, 3==4]) # returns true if all is true
+callable(1)
+callable(dir)
+
+~False  
+~True
+bool(~(1==2))
+bool(~(False))
+
 #%% Numbers 
 googol_number = 10 ** 100
 print(googol_number)
@@ -123,12 +134,10 @@ b.as_integer_ratio()   # 15 digit relative accuracy
 import decimal
 from decimal import Decimal
 
-import matplotlib
-matplotlib?
-
 decimal?  #is apparently stored in a different folder than matplotlib
 decimal.getcontext?
-decimal.getcontext()
+decimal.getcontext() # default precision is 28, can be chagned, see below
+#Python itself runs on use the IEEE 754 double-precision standard — i.e., 64 bits   15 digit relative accuracy
 
 1/11
 Decimal(1) / Decimal(11)
@@ -148,6 +157,8 @@ int(z)
 float(10)
 int(10.9)
 int("1598")
+oct(10)
+hex(10)
 
 import random
 print(random.randrange(1, 10))   # random number between 1 and 9
@@ -166,14 +177,13 @@ x **= 3
 
 3 != 3
 3 == 3
-
 3 == 4 or 3 <5 and not(5==7)
 
 min([3,4])
 pow(3, 3) #power
 
 list(range(1, 10)) 
-
+abs(-5)
 #%% Strings
 t = 'this is a string'
 t.split(" ") 
@@ -186,12 +196,12 @@ t.lower()
 t.endswith('g')
 t.index('g')
 
-# plenty of more methods
-
+# plenty of more methods...
 t.count('s')
 t.replace('string', 'cat')
 
 t.find(' ')
+t.find('wx') #-1 there is none
 
 'http://www.python.org/'.strip('http:/')
 
@@ -220,8 +230,10 @@ print(x + y)
 quantity = 3
 itemno = 567
 price = 49.95
-myorder = "I want to pay {2} dollars for {0} pieces of item {1}."
+myorder = "I want to pay {2} dollars for {0} pieces of item {1}." #newr way then with the % character
 print(myorder.format(quantity, itemno, price))
+
+print("I want to pay %i dollars for %i pieces of item %f."%(quantity, itemno, price))
 
 quantity = 3
 itemno = 567
@@ -236,7 +248,17 @@ print(myorder.format(quantity, itemno, price))
 "".isalnum()
 "ahoj".find("h")
 "center".center(50).strip()
+'Aa'.swapcase()          
 
+for i in range(10):
+    print(i, end = 'I')
+
+
+for i in range(10):
+    print(i, end = '\n') #default value - line break
+
+# Reverse a string
+"Hello World"[::-1]
 
 #%%
 ## Tuples
@@ -252,7 +274,7 @@ type(t[3])
 t.index(12)
 t.count(12)
 
-#To create a tuple with only one item, you have to add a comma after the item, otherwise Python will not recognize it as a integer.
+#To create a tuple with only one item, you have to add a comma after the item, otherwise Python will not recognize it as a integer/string.
 a = ('a')
 a = ('a',)
 
@@ -288,6 +310,13 @@ list1 = ['a', 'b', 'c']
 
 list1.pop()
 list1.pop(1)
+list1.pop(1)
+
+l = [a for a in range(20)]
+l[0:20:2] = 'samthingbo' # replace evert k-th
+del l[0:20:2] #deletes every kth 
+
+l.reverse()
 
 del list1[1]
 del a
@@ -310,7 +339,11 @@ list1.clear()
 ## list comprehensions
 m = [i ** 2 for i in range(6)]   
 m
-    
+ 
+# remove duplicates from a list
+mylist = ["a", "b", "a", "c", "c"]
+mylist = list(dict.fromkeys(mylist))
+
 #%% dicts
 d = {
      1 : 'A',
@@ -336,12 +369,12 @@ c.items()
 
 c.__getitem__('POTUS')
 
-dict = {'a': 'aloha', 'b': 'baloha', 'c': 'caloha'}
-    dict.values()
-    dict.items()
-    dict.keys()    
+dict1 = {'a': 'aloha', 'b': 'baloha', 'c': 'caloha'}
+    dict1.values()
+    dict1.items()
+    dict1.keys()    
   
-for key, item in dict.items():
+for key, item in dict1.items():
     print(key + str(' - ' ) + item)
     
 dict.pop('c') 
@@ -353,7 +386,6 @@ dicti.pop('3')
 thisdict = dict(brand = 'Ford', model = 'F150')
 thisdict
 dicit2 = dict(dicti) #how to copy not only dictionaries
-
 
 dict = ['a', 'b']
 enumerate(dict)
@@ -376,15 +408,16 @@ set1.remove('120') # if the item does not exist, this will raise an error, thats
 set1.discard('120')
 set1.clear()
 set2 = s + set1 # does not work
-set2 = s.union(set1, set2)
+set2 = s.union(set(['b', 'u']), s)
 set2
 
 s.intersection(set2)
+u = {'v', 'u'}
 
+u.symmetric_difference(s) #items in one or the other but not in both
 
 #%%
 ## Control Structures
-
 a = [1, 2, 3, 4, 5, 6, 7, 8]
 
 # Cycles
@@ -413,8 +446,7 @@ for i in range(1,20):
 for i in "Hello World":
     print(i)
     if i == "W": break
-    
-    
+       
 for i in "Hello World":
     if i == "W": continue  #continues with the next item
     print(i)  
@@ -430,12 +462,10 @@ print(True) if 5 > 6 else print(False) if 4 < 2 else print('c')
 if 5 > 3: pass #if statements cannot be empty, put in the pass statement to avoid getting an error.
 
 # while
-
 total = 0
 while total < 100:
     total += 1
     print(total, end = " - ")        
-
 
 i = 0
 while i < 6:
@@ -454,7 +484,6 @@ def myfunct(*args):  #if i do not know how many parameters will be passed
     print(args)
 
 #Arbitrary Arguments are often shortened to *args
-
 myfunct(4,5, a)
 
 #keyword arguments = kwargs
@@ -463,7 +492,6 @@ def my_function(**kid):
   print("His last name is " + kid["lname"])
 
 my_function(fname = "Tobias", lname = "Refsnes") 
-
 
 def nasob2 (x, y, z=None, a = False):
     if z == None:
@@ -517,34 +545,19 @@ mytripler = myfunc(3)
 print(mydoubler(11))
 print(mytripler(11))
 
-#%% TIME FUNCTIONS
-import datetime as dt
-import time as tm
+# Filter
+ages = [5, 12, 17, 18, 24, 32]
 
-dtnow = dt.datetime.fromtimestamp(tm.time())
-dtnow.month
-dt.date.today()
-delta = dt.timedelta(days = 2)
-today = dt.date.today() - delta
-today
-    
-import timeit 
-    print(timeit.timeit('x=(1,2,3,4,5,6,7,8,9,10,11,12)', number=1000000))
-    print(timeit.timeit('x=[1,2,3,4,5,6,7,8,9,10,11,12]', number=1000000))
+def myFunc(x):
+  if x < 18:
+    return False
+  else:
+    return True
 
-a = dt.datetime.now()
-type(a)
-print(a)
+adults = filter(myFunc, ages)
 
-dt.date(2019, 2, 12)
-
-dir(dt)
-
-a.year
-a.day
-
-a.strftime('%A')
-a.strftime('%B')
+for x in adults:
+  print(x)
 
 #%% Iterators
 
@@ -563,9 +576,15 @@ import MyModule as mm
 mm.greet("Pavlos")
 dir(mm)
 
+import platform
+platform.system()
+dir(platform)
+platform.uname()
+platform.python_version()
+platform.processor()
+platform.machine()
 
 #%% Classes
-
 class myClass:
     x = 5
     
@@ -600,7 +619,6 @@ t1.v1 # object properties
 t1.v2
 t1.myfunct() # object method
 
-
 t1.v1 = "Ladies"
 t1.v1
 
@@ -616,7 +634,7 @@ o1 = t2("Show__", "Manship")
 
 o1.v1
 
-    
+  
 class Student(trida2):
     def __init__(self, fname, lname):
         self.firstname = fname
