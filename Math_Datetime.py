@@ -10,7 +10,6 @@ math.exp(1)
 math.e
 math.inf #returns infinity
 
-
 math.factorial(4)
 math.floor(24.2264654)
 math.ceil(24.2264654)
@@ -22,7 +21,6 @@ math.sin(1)
 math.tau
 
 math.fabs(-5.5)
-
 
 #%% TIME FUNCTIONS
 import datetime as dt
@@ -36,8 +34,10 @@ today = dt.date.today() - delta
 today
     
 import timeit 
-    print(timeit.timeit('x=(1,2,3,4,5,6,7,8,9,10,11,12)', number=1000000))
-    print(timeit.timeit('x=[1,2,3,4,5,6,7,8,9,10,11,12]', number=1000000))
+print(timeit.timeit('x=(1,2,3,4,5,6,7,8,9,10,11,12)', number=1000000))
+print(timeit.timeit('x=[1,2,3,4,5,6,7,8,9,10,11,12]', number=1000000))
+
+%timeit x=[1,2,3,4,5,6,7,8,9,10,11,12]
 
 a = dt.datetime.now()
 type(a)
@@ -52,8 +52,3 @@ a.day
 
 a.strftime('%A')
 a.strftime('%B')
-
-
-
-
-
