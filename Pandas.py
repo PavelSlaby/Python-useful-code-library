@@ -7,13 +7,15 @@ df
 
 df.index
 df.columns
+df.values
 
 df.sum()
-df.sum(axis = 0)
+df.sum(axis = 0) # axis are the same as for numpy 
 df.sum(axis = 1)
 
-
 df.apply(lambda x: x **2)
+np.ones(10).apply(lambda x: x **2) # does not work on numpy
+list(map(lambda x: x + 89, np.ones(10))) # map works on numpy
 
 df
 df ** 2
@@ -26,9 +28,11 @@ df['6th'] = (6, 8)
 df['col1']
 df
 
-df = df.append({'numbers': 3, '2': 3.1, '3': 5.5, '4': 4.4, '5th': 3.5 ,'6th': 3.4 }, ignore_index = 1)
-df1 = df.append({'numbers': 3, '2': 3.1, '3': 5.5, '4': 4.4, '5th': 3.5 ,'6th': 3.4 })
-
+df = df.append({'numbers': 3, '2': 3.1, '3': 5.5, '4': 4.4, '5th': 3.5 ,'6th': 3.4 }, ignore_index = 1) #replaces the index!!! and creates a new row if it does not know to which of existing rows to assging the new data
+df1 = df.append({'numbers': 3, '2': 3.1, '3': 5.5, '4': 4.4, '5th': 3.5 ,'6th': 3.4 }) #does not know to which row to assign
+df1 = df.append(pd.DataFrame({'col1': 3, 'col2': 3.1, 'col3': 5.5, 'col4': 4.4,}, index = ['row3'])) #remedies the problem above
+df2 = df.append(pd.DataFrame({'col1': 3, 'col2': 3.1}, index = ['row3'])) #incomplete row results in NaN
+df2.values #np array object 
 
 df['col2'].mean()
 
@@ -41,12 +45,16 @@ a.round(6)
 df = pd.DataFrame(a)
 df
 
+type(df[0])
+df[0].name
+df[0].dtype
+df[0].index
+
 df2 = pd.DataFrame(a, index = range(11, 20), columns = ('a', 'b', 'c', 'd'))
 df2
 
 df.columns = ['1st' ,'2nd', '3rd', '4th']
 df['2nd'][2]
-
 
 dates = pd.date_range('2015-01-01,', periods = 9, freq = 'M')
 dates1 = pd.date_range(start = '2015-01-01', end = '2016-01-01', freq = 'M')
@@ -75,18 +83,14 @@ df.sum()
 
 df.cumsum().plot(lw = 2.0)
 
-
 type(df['1st'])
 
 import matplotlib.pyplot as plt
 
 df['1st'].cumsum().plot(style = 'r', lw = 2.0)
-plt.xlabel('date')
-plt.ylabel('value')
-
-df
 
 df['Quarter'] = ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1']
+df
 
 groups = df.groupby('Quarter')
 groups
@@ -106,10 +110,11 @@ pd.Series(sports)
 s = pd.Series(np.random.randint(0,10,100))
 s
 s.iloc[0]
+s.loc[0]
+
 s.head(9)
 s+= 100
-s    
-    
+s     
 
 
 
