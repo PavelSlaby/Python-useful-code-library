@@ -5,11 +5,16 @@ u = [3, 4, 5, 6, 7]
 t = [0, 0, 0, 0, 0]
 
 m = [v, w, u, t]
-
 m
 print(m)
+
 m[1]
 m[1][1]
+
+#there is python array thingy
+import array
+array.array('f',[1, 2, 3]) 
+#this is not very convenient
 
 import numpy as np
 np.__version__
@@ -43,14 +48,14 @@ print(b)
 
 b[0][1]
 b[1][2]
-b[1, 2]
+b[1, 2] #same as b[1][2]
 
-b.sum(axis=0) #sum columnwise
-b.sum(axis=1) #sum rownwise
+b.sum(axis=0) #sum columnwise - same as pundas
+b.sum(axis=1) #sum rownwise - sae as pandas
 
 u = np.array([0, 0.5, 10 , 0], dtype = 'S') #string type
 print(u)
-u.astype('f')
+u = u.astype('f') # change type
 
 d = np.zeros((5, 2, 3))
 d
@@ -59,7 +64,7 @@ e = np.ones([2,2])
 e
 a = list(e)
 
-d3 = np.array([[[1, 2], [1, 2]], [[3, 4], [3, 4]]])
+d3 = np.array([[[1, 2], [1, 2]], [[3, 4], [3, 4]], [[3, 4], [3, 4]], [[3, 4], [3, 4]], [[3, 4], [3, 4]]])
 d3
 d3.ndim
 
@@ -91,9 +96,9 @@ ar2 = np.array([[4, 5, 6], ['a', 20, 30]])
 
 ar = np.concatenate((ar1, ar2))
 ar
-ar = np.concatenate((ar1, ar2), axis = 1)
+ar = np.concatenate((ar1, ar2), axis = 1) #equivalent to hstack
 ar
-ar = np.concatenate((ar1, ar2), axis = 0)
+ar = np.concatenate((ar1, ar2), axis = 0) #equivalent to vstack
 ar
 
 br = np.hstack((ar1, ar2))
@@ -106,6 +111,10 @@ br[-1,::2]  # This is a slice of the last row, and only every other element.
 cr  = np.array_split(br, 4)
 cr
 cr[1]
+cr  = np.array_split(br, 2)
+cr
+cr  = np.array_split(br, 8)
+cr
 
 o = np.array(np.vstack([range(10), range(10)]))
 print(np.where(o == 3))
@@ -141,12 +150,12 @@ ar5[ar5 > 2] = 10
 
 np.zeros((3,2))
 x = np.eye(9)
+x
 c = np.diag(x)
 c
 
 help(np.diag)
 np.diag([7,5,6])
-
 #%%
 import numpy as np
 from numpy import random
@@ -182,11 +191,9 @@ random.normal() #normal distribution, gaussian for 0, 1
 random.normal(0, 1, size = (10, 10))
 
 sns.distplot(random.normal(20, 10, size = 10000))
-
-
 #%% binomial dist
 
-random.binomial(20, 1, 5) #number of succeses in N trials with probability of success p
+random.binomial(20, 0.5, 5) #number of succeses in N trials with probability of success p
 sns.distplot(random.binomial(n = 10, p = 0.5, size = 1000))
 
 sns.distplot(random.binomial(n = 100, p = 0.5, size = 1000))
@@ -203,18 +210,16 @@ sns.distplot(x)
 # again poisson is similar to normal
 sns.distplot(random.normal(loc=30, scale=5, size=10000), hist = False, label='normal')
 sns.distplot(random.poisson(lam=30, size=10000), hist = False, label='poisson')
-plt.show()
 
 #%% Uniform distribution
-
 x = random.uniform(1, 10, size = (1000))
 sns.distplot(x, kde = False)
 
-#%% logistic
-
+#%% logistic and lognormal
 random.logistic(loc = 1, scale =2, size = 1000)
 sns.distplot(random.normal(loc = 0, scale =1, size = 1000), hist = False, label = 'Normal')
 sns.distplot(random.logistic(loc = 0, scale =1, size = 1000), hist= False, label = 'logistic')
+sns.distplot(random.lognormal(mean = 0.0, sigma = 1, size = 1000)) # can not be negative
 # ligistic distribution has more area in the tails, atherwise the distributions are similar
 
 #%% exponential dist
@@ -260,11 +265,10 @@ np.divmod(a, b)
 np.absolute(np.array(a)* (-1))
 
 # custom ufunc
-
 def myfunction(x, y):
     return x * y + 3 
 
-multiply = np.frompyfunc(myfunction, 2, 1)
+multiply = np.frompyfunc(myfunction, 2, 1) # params: func, number of inputs, number of outputs
 
 multiply(a, b)
 
