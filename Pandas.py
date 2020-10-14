@@ -85,8 +85,6 @@ df.cumsum().plot(lw = 2.0)
 
 type(df['1st'])
 
-import matplotlib.pyplot as plt
-
 df['1st'].cumsum().plot(style = 'r', lw = 2.0)
 
 df['Quarter'] = ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Q4', 'Q1']
@@ -114,7 +112,4 @@ s.loc[0]
 
 s.head(9)
 s+= 100
-s     
-
-
-
+s    
