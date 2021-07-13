@@ -1,22 +1,26 @@
 ##%  Playing with the Code and miscellaneous
 ' tips and tricks: pres Tab after writing a dot after an object to get help
 
-import this
+a = [1, 2]
+b = a
+id(a)
+id(b) #memory adress of the object is same for b and a
 
-%magic
-%lsmagic # alll available magic commands
+import this # The Zen of Python
 
-?
+%magic # all available magic commands, with description
+%lsmagic  # short list of the previous
+# examples of magic commands:
+%history
+%timeit 4 + 4 
+%time 2+5 #    Time execution of a Python statement or expression.
+%%python?
 %quickref # Quick reference of all IPython specific syntax and magics.
+
+? #-> Introduction and overview of IPython's features.
 help() #Access Python's own help system.
 
 pip list #list all the packages installed on your system:
-
-import camelcase
-pip install camelcase    
-pip uninstall camelcase
-
-%time 2+5 #    Time execution of a Python statement or expression.
 
 '''Indentation: The number of spaces is up to you as a programmer, but it has to be at least one. '''
 
@@ -26,36 +30,48 @@ print(input("vek:"))
 x, y, z = "Orange", "Banana", "Cherry"
 x = y = z = "Orange" 
 
+# using "global" variable - valid outside function
 def myfunc():
   global x
   x = "fantastic"
   print(x)
 
+
+def myfunc2():
+  x = "fantastic"
+  print(x)
+
 myfunc()
+x = 'not-fantastic'
+x
+myfunc()
+x # x was rewritten by the previous use of the myfunct function
+x = 'not-fantastic'
+myfunc2()
+x # this time it was not rewritten
 
 o = 5
-isinstance(o, int)
+isinstance(o, int) #checks whether it is the datatype indicated as a second parametr of the function
 
 try:
     print(w)
     print(10/0)
-except:
-    print("error vole")
+except: #executed if any error
+    print("Yo, error message")
  
-      
 try:
-    #print(1/0)
-   print(w)
-except ZeroDivisionError:
-    print("error: cant divide by zero")
+   print(1/0)
+   #print(w)
+except ZeroDivisionError: #executed only if this specific error occurs only
+    print("Yo, error: cant divide by zero")
       
 try:
     print(1/1)
     print(1/0)
 except ZeroDivisionError:
     print("error - cant divide by zero, duh ")
-else:
-    print("its all good")
+else: 
+    print("its all good") # printed only if no error occured
 finally:
     print("does not matter if it was error or not")    
     
@@ -134,15 +150,13 @@ b.as_integer_ratio()   # 15 digit relative accuracy
 import decimal
 from decimal import Decimal
 
-decimal?  #is apparently stored in a different folder than matplotlib
 decimal.getcontext?
 decimal.getcontext() # default precision is 28, can be chagned, see below
 #Python itself runs on use the IEEE 754 double-precision standard — i.e., 64 bits   15 digit relative accuracy
+decimal.getcontext().prec = 41
+Decimal(b) + Decimal(0.1)
 
 1/11
-Decimal(1) / Decimal(11)
-
-decimal.getcontext().prec = 21
 Decimal(1) / Decimal(11)
 
 # alternative approach
@@ -161,7 +175,7 @@ oct(10)
 hex(10)
 
 import random
-print(random.randrange(1, 10))   # random number between 1 and 9
+print(random.randrange(1, 10))   # random number between 1 and 9 including
 
 15 // 7  #floor division, rounds down automatically 
 
@@ -173,7 +187,7 @@ x *= 10
 x /= 10
 x **= 3
 8 % 7
-2 **2
+2 ** 2
 
 3 != 3
 3 == 3
@@ -184,9 +198,13 @@ pow(3, 3) #power
 
 list(range(1, 10)) 
 abs(-5)
+
+float('nan')
+
 #%% Strings
 t = 'this is a string'
 t.split(" ") 
+t.split("a") 
 
 type(t.split())
 t.capitalize()
@@ -230,14 +248,11 @@ print(x + y)
 quantity = 3
 itemno = 567
 price = 49.95
-myorder = "I want to pay {2} dollars for {0} pieces of item {1}." #newr way then with the % character
-print(myorder.format(quantity, itemno, price))
-
 print("I want to pay %i dollars for %i pieces of item %f."%(quantity, itemno, price))
 
-quantity = 3
-itemno = 567
-price = 49.95
+myorder = "I want to pay {2} dollars for {0} pieces of item {1}." #newer way then with the % character
+print(myorder.format(quantity, itemno, price))
+
 myorder = "I want {} pieces of item {} for {} dollars."
 print(myorder.format(quantity, itemno, price))
 
@@ -252,7 +267,6 @@ print(myorder.format(quantity, itemno, price))
 
 for i in range(10):
     print(i, end = 'I')
-
 
 for i in range(10):
     print(i, end = '\n') #default value - line break
@@ -274,19 +288,18 @@ type(t[3])
 t.index(12)
 t.count(12)
 
-#To create a tuple with only one item, you have to add a comma after the item, otherwise Python will not recognize it as a integer/string.
+#To create a tuple with only one item, add a comma after the item, otherwise Python will not recognize it as a integer/string.
 a = ('a')
 a = ('a',)
 
 tupl = (4, 5, 6)
-tupl[1] = 6
+tupl[1] = 6 #expected error
 
 #%% ## Lists
 l = [1, 2, 3, 'date']  # 'BRACKET
 k = (1, 2, 3, 'date')  # 'PARENTHESES
 type(l)
 type(k)
-
 k = list(k)
 
 print(l[2])
@@ -316,8 +329,6 @@ l = [a for a in range(20)]
 l[0:20:2] = 'samthingbo' # replace evert k-th
 del l[0:20:2] #deletes every kth 
 
-l.reverse()
-
 del list1[1]
 del a
 
@@ -325,16 +336,12 @@ list2 = list1.copy()
 list3 = list1
 list3.clear()
 
-list4 = list(list1)
-
 list5 = list2 + list1
-list((1,2,5))
-list5.reverse()
+
 list5.sort()
+sorted([2,50,-9,10])
 
 list5.__len__()
-
-list1.clear()
 
 ## list comprehensions
 m = [i ** 2 for i in range(6)]   
@@ -343,6 +350,7 @@ m
 # remove duplicates from a list
 mylist = ["a", "b", "a", "c", "c"]
 mylist = list(dict.fromkeys(mylist))
+
 
 #%% dicts
 d = {
@@ -354,13 +362,13 @@ d = {
 c = {
      'country' : 'usa',
      'POTUS' : 'Donald',
-     'status' : 'hovado'
+     'status' : 'democracy'
      }
 
 print(d)
 type(d)
 
-print(d[2])
+print(d[1])
 print(c['POTUS'])
 
 c.keys()
@@ -368,16 +376,11 @@ c.values()
 c.items()
 
 c.__getitem__('POTUS')
-
-dict1 = {'a': 'aloha', 'b': 'baloha', 'c': 'caloha'}
-    dict1.values()
-    dict1.items()
-    dict1.keys()    
-  
-for key, item in dict1.items():
-    print(key + str(' - ' ) + item)
+ 
+for key, value in c.items():
+    print(key + str(' - ' ) + value)
     
-dict.pop('c') 
+c.pop('status') 
     
 dicti = dict()
 dicti['3'] = '3a'
@@ -391,8 +394,9 @@ dict = ['a', 'b']
 enumerate(dict)
     
 for numbers,items in enumerate(dict):
-    print(items)
     print(numbers)
+    print(items)
+
 
 #%% Sets
 #A set is a collection which is unordered and unindexed
@@ -430,8 +434,6 @@ for i in a[0:4]:
 r = range(0, 8, 1)
 type(r)
 
-for i in range(2,6):
-    print(i)
     
 for i in range(10): 
     print(i, end = " ") 
@@ -482,16 +484,17 @@ else:
 
 def myfunct(*args):  #if i do not know how many parameters will be passed
     print(args)
-
 #Arbitrary Arguments are often shortened to *args
+
 myfunct(4,5, a)
 
-#keyword arguments = kwargs
+#keyword arguments = **kwargs
 
 def my_function(**kid):
   print("His last name is " + kid["lname"])
 
 my_function(fname = "Tobias", lname = "Refsnes") 
+
 
 def nasob2 (x, y, z=None, a = False):
     if z == None:
@@ -515,13 +518,6 @@ def addition(n):
 numbers = (1, 2, 3, 4) 
 k = map(addition, numbers) 
 print(list(k))
-
-import math
-
-def odm(x):
-    return math.sqrt(x) == 3
-
-odm(10)
 
 def f():
     return True
@@ -565,24 +561,6 @@ list1 = [1, 2, 3, 4 ]
 i = iter(list1)
 next(i)  
 
-#%% Modules
-
-import os
-os.getcwd()
-os.chdir("f:\_Python")
-
-import MyModule as mm
-
-mm.greet("Pavlos")
-dir(mm)
-
-import platform
-platform.system()
-dir(platform)
-platform.uname()
-platform.python_version()
-platform.processor()
-platform.machine()
 
 #%% Classes
 class myClass:
@@ -600,7 +578,6 @@ p1 = trida("Ja", 27)
 
 p1.name1
 p1.age1 
-
 
 """The self parameter is a reference to the current instance of the class.
 It does not have to be named self, but it has to be the first parameter of any function in the class: """
@@ -626,23 +603,23 @@ trida2.__init__
 del t1.v1
 
 #Creating a child class
-
 class t2(trida2):
     pass  #Use the pass keyword when you do not want to add any other properties or methods to the class.
 
 o1 = t2("Show__", "Manship")
-
 o1.v1
 
-  
-class Student(trida2):
-    def __init__(self, fname, lname):
-        self.firstname = fname
-        self.lastname = lname
-        
-a = Student("Pavlos", "Hejhoo")        
-a.firstname        
-a.lastname        
-        
+     
 #there are more complicated syntax for inheritance.....
     
+#%% Misc
+
+import numpy as np
+returns = np.array([1, 2])
+
+print(f'Avg return: {100 * returns.mean():.2f}')
+
+RISKY_ASSETS = ['GOOG', 'FB']
+f'{" vs. ".join(RISKY_ASSETS)}'
+
+
