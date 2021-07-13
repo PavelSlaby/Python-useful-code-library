@@ -32,6 +32,7 @@ print(a.read())
 
 a = open(file2, 'w')
 a.write('just rewrote the file')
+print(a.read())
 
 a = open('created_file.txt', 'x')
 
@@ -42,17 +43,13 @@ os.path.exists(file)
 
 os.rmdir() # removes a directory
 
-print(f.read())
-
-w = open("Test.txt", 'w')
-w.write("ahoj")
-w.close()
-
-
 f1 = open("Test.txt", 'w')
 for i in range(10):
     f1.writelines(str(i) + ' ' + str(i ** 2) + '\n')
-        
+     
+f1 = open("Test.txt", 'r')     
+f1.read()
+
 f1.close()    
 
 if os.path.exists("Test.txt"):
@@ -62,6 +59,12 @@ os.mkdir("WorkingFiles")
 os.rmdir("WorkingFiles")
 
 
+#%% Platform
 
-
-
+import platform
+platform.system()
+dir(platform)
+platform.uname()
+platform.python_version()
+platform.processor()
+platform.machine()
