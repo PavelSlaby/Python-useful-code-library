@@ -4,10 +4,10 @@ import math
 
 math.sqrt(81)
 math.pi
-math.degrees(math.pi * 2)
+math.degrees(math.pi)
 
 math.exp(1)
-math.e
+math.exp(1) == math.e
 math.inf #returns infinity
 
 math.factorial(4)
@@ -22,17 +22,24 @@ math.tau
 
 math.fabs(-5.5)
 
+math.nan 
+math.nan == math.nan
+
 #%% TIME FUNCTIONS
 import datetime as dt
 import time as tm
 
 dtnow = dt.datetime.fromtimestamp(tm.time())
 dtnow.month
+dtnow.year
+dtnow.day
+dtnow.strftime('%A')
+dtnow.strftime('%B')
+
 dt.date.today()
 delta = dt.timedelta(days = 2)
-today = dt.date.today() - delta
-today
-    
+dt.date.today() - delta
+   
 import timeit 
 print(timeit.timeit('x=(1,2,3,4,5,6,7,8,9,10,11,12)', number=1000000))
 print(timeit.timeit('x=[1,2,3,4,5,6,7,8,9,10,11,12]', number=1000000))
@@ -44,11 +51,7 @@ type(a)
 print(a)
 
 dt.date(2019, 2, 12)
-
 dir(dt)
 
-a.year
-a.day
+dt.date.today().strftime('%Y-%m-%d')
 
-a.strftime('%A')
-a.strftime('%B')
