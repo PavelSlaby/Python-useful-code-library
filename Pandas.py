@@ -27,7 +27,7 @@ instead of the first tool you reach for.
 #creating a series
 pd.Series([1, 145, 2, 200], name  = 'counts') #index implicit
 numbers = pd.Series([1, 145, 2, 200], name  = 'counts', index  = [1, 2, 2, 4]) #explicit is always better
-pd.Series([2, None]) # istead of none automatically displays NaN - not a number, if it can not read a number in clearly otherwise numerical series
+pd.Series([2, None]) # instead of none automatically displays NaN - not a number, if it can not read a number in clearly otherwise numerical series
 pd.Series({1: 'Prague', 2: 'NY'}) #using dict to create series
 
 #investigating a series
@@ -75,8 +75,8 @@ numbers.sort_values()
 
 #iteration
 # in series iteration is over the values, membership is over the index, see below:
-145 in numbers #returns False, it checks against the index
-145 in set(numbers) #works
+200 in numbers #returns False, it checks against the index
+200 in set(numbers) #works
 2 in numbers #works because it checks against the index which contains 2
 
 # to iterate over the values, use iteritems()
@@ -87,7 +87,6 @@ for i in numbers.iteritems():
 for i in numbers.keys():
     print(i)
     
-
 numbers.repeat(2) #simply repeats each items a number of times
     
 #index operations
@@ -119,17 +118,6 @@ pd.to_datetime(numbers)
 del numbers[2]    
 
 
-#%%File operations
-numbers = pd.Series([1, 145, 2, 200], name  = 'counts')
-
-file = "f:\_Python\General useful\/python_test.csv"
-
-with open(file,"w") as f:
-    numbers.to_csv(file, header = True, index_label = 'Index')
-
-open(file,"r")
-pd.read_csv(file, index_col = 0)
-
 #%% DataFrame
 
 #DataFrame creation and investigation
@@ -153,10 +141,12 @@ df.values
 df.shape
 df.info()
 
-
 df['col1'].name
 df['col1'].dtype
 df['col1'].index
+
+df[df.col2 > 10]
+df.query('col2 > 10') #alternative to previous, but does not work well with numerical columns
 
 pd.DataFrame({'growth' : [1, 2, 3, 4, 5], 'string' : ['guten', 'bye', 'sula', 'hopla', 'A']})
 
@@ -192,7 +182,6 @@ for i in df.iteritems():
 for i in df.iterrows(): #over the rows
     print(i) 
     
-
 #delete columns with .pop, .drop, or del
 df.drop([1,2]) # drops rows
 del df['col1']
@@ -218,6 +207,13 @@ dates1
 
 pd.date_range(start = '2015-01-01', end = '2016-01-01', freq = 'M') #month end
 pd.date_range(start = '2015-01-01', end = '2016-01-01', freq = 'MS') #months start
+pd.date_range(start = '2019-01-01', end = '2020-01-01', freq = 'B') #biz day freq
+pd.date_range(start = '2019-01-01', end = '2020-01-01', freq = 'D') #calendar day freq
+pd.date_range(start = '2019-01-01', end = '2020-01-01', freq = 'BM') #biz month end day freq
+pd.date_range(start = '2019-01-01', end = '2020-01-01', freq = 'Q')
+pd.date_range(start = '2010-01-01', end = '2020-01-01', freq = 'A')
+pd.date_range(start = '2010-01-01', end = '2020-01-01', freq = 'T') #minutely
+
 
 start, end = '2021-01-01', '2021-02-02'
 dates = pd.DataFrame(index = pd.date_range(start, end))   #creating empty dataframe, only the index is defined
@@ -253,7 +249,7 @@ df.sum()
 df.prod() #product
 df.sum(axis = 0) # axis are the same as for numpy 
 df.sum(axis = 1)
-df['6th'].quantile(.01)
+df['col4'].quantile(.01)
 df['6th'].skew()
 df['6th'].kurt()
 df['6th'].diff() #first difference of a series
@@ -369,62 +365,7 @@ def realized_vol(x):
 
 df_rv = df.groupby(pd.Grouper(freq= 'M')).apply(realized_vol)
 
-df_rolling = df['simple_rtn'].rolling(window = 21).agg(['mean', 'std' ])
-
-
-#%%
-csv_path = r'F:\_Python\Tutorial replications\Cookbook\F-F_Research_Data_factors_CSV/F-F_Research_Data_Factors.CSV'
-
-factor_df = pd.read_csv(csv_path, skiprows = 3)
-factor_df.columns = ['date', 'mkt', 'smb', 'hml', 'rf']
-
-string = ' Annual Factors: January-December '
-
-indices = factor_df.iloc[:, 0] == string
-indices[indices == True]
-
-start_annual = factor_df[indices].index[0]
-
-factor_df = factor_df[factor_df.index < start_annual]
-factor_df = factor_df.dropna()
-
-factor_df['date'] = pd.to_datetime(factor_df['date'], format='%Y%m').dt.strftime("%Y-%m")
-factor_df = factor_df.set_index('date')
-
-asset = 'FB'
-start_date= '2013-12-31'
-end_date = '2018-12-31'
-
-factor_df = factor_df.loc[start_date:end_date]
-factor_df.info()
-
-# convert to numeric
-pd.to_numeric(factor_df.mkt)
-
-factor_df = factor_df.apply(pd.to_numeric)
-factor_df.info()
-factor_df = factor_df/100
-
-fb_df = yf.download(asset, start = start_date, end = end_date, adjusted = True)
-y = fb_df['Adj Close'].resample('M').last().pct_change().dropna()
-y.index = y.index.strftime('%Y-%m')
-y.name = 'rtn'
-
-ff_data = factor_df.join(y)
-ff_data['excess_rtn'] = ff_data['rtn'] - ff_data['rf'] 
-
-y = yf.download('TSLA', start=start_date, end=end_date, adjusted=True, progress=False)
-y.index = y.index.strftime('%Y-%m') # excludes day from the index 
-
-y.name = 'return' # rename a series
- 
-df.dtypes
-
-df.memory_usage(deep=True) / 1024 ** 2 # to be in MB
-
-df.describe().transpose().round(2)
-df.describe(include='object').transpose() #describes only categorical
-df.describe(include='all')
+df_rolling = df['simple_rtn'].fillna(method = 'ffill') .rolling(window = 21).agg(['mean', 'std' ])
 
 
 #%% Dunder https://www.dunderdata.com/blog/selecting-subsets-of-data-in-pandas-part-1
@@ -520,7 +461,6 @@ type(food.iloc[1])
 type(food.iloc[1::2])
 
 food[[1, 2]] # is possible to select a list of integers as opposed to a python list, see error below
-food.tolist()[[1, 2]]
 food.tolist()[1:2]
 food[1:2] 
 
@@ -555,7 +495,7 @@ file = '\TestFrame.csv'
 
 #1] 
 df.to_csv(directory + file, sep = ';')
-pd.read_csv(directory + file) # does not work with anything them COMMA separeted files
+pd.read_csv(directory + file) # does not work with anything then COMMA separeted files
 df.to_csv(directory + file, sep = ',')
 pd.read_csv(directory + file) 
 
@@ -572,6 +512,19 @@ df2 = pd.read_csv(directory + file)
 df2.index #if not specified during the import, pandas creates a RangeIndex object
 
 df2.rename(columns= {'Unnamed: 0':'Names'}, inplace = True)
+
+numbers = pd.Series([1, 145, 2, 200], name  = 'counts')
+
+file = "f:\_Python\General useful\/python_test.csv"
+
+with open(file,"w") as f:
+    numbers.to_csv(file, header = True, index_label = 'Index')
+
+open(file,"w") #this syntax also works
+numbers.to_csv(file, header = True, index_label = 'Index')
+
+open(file,"r")
+pd.read_csv(file, index_col = 0)
 
 #%% Subsets
 
@@ -643,6 +596,9 @@ groups
 groups.mean()
 groups.max()
 groups.size()
+groups.aggregate(['min', 'max', 'size', 'count']).round(2)
+
+
 
 df['Odd_Even'] = ['Odd', 'Even','Odd', 'Even','Odd', 'Even', 'Odd' ]
 df
@@ -689,10 +645,98 @@ df1.merge(df2, how = 'left')
 df1.merge(df2, how = 'right') 
 
 
-df.describe()
 df.describe().to_string(line_width = 200)
 print(df.describe().to_string(line_width = 200))
 
+df1 = pd.DataFrame(data = [100, 200, 500, 400], columns = ['A'], index = ['a', 'b', 'c' ,'d'])
+df2 = pd.DataFrame(data = [200, 50, 150], columns = ['B'], index = ['f', 'b', 'd'])
+df1
+df2
 
+
+# concatenation = appending
+df1.append(df2)
+df1.append(df2, ignore_index = True) 
+
+pd.concat((df1, df2))
+pd.concat((df1, df2), ignore_index=True)
+
+#joining
+df1.join(df2) #by default it is a "left join"
+df2.join(df1) #by default it is a "left join"
+
+df1.join(df2,how = 'right')
+df1.join(df2,how = 'inner')
+df1.join(df2,how = 'outer')
+
+#merging - usually done for columns
+c = pd.Series([250, 150, 50], index = ['b','d', 'c'])
+df1['C'] = c
+df2['C'] = c #!!! kinda like "left merge"
+
+pd.merge(df1, df2) #mergin on column C
+pd.merge(df2, df1) #mergin on column C
+pd.merge(df2, df1, on = 'C') #mergin on column C
+pd.merge(df2, df1, how= 'outer') 
+pd.merge(df1, df2, left_on= 'A', right_on= 'B',how = 'outer')  #joins on A from left table, on B fro right
+pd.merge(df1, df2, left_on= 'A', right_on= 'B',how = 'inner')
+pd.merge(df1, df2, left_index= True, right_index= True)
+pd.merge(df1, df2, left_index= True, right_index= True, on ='C')
+
+
+
+#%%
+csv_path = r'F:\_Python\Tutorial replications\Cookbook\F-F_Research_Data_factors_CSV/F-F_Research_Data_Factors.CSV'
+
+factor_df = pd.read_csv(csv_path, skiprows = 3)
+factor_df.columns = ['date', 'mkt', 'smb', 'hml', 'rf']
+
+string = ' Annual Factors: January-December '
+
+indices = factor_df.iloc[:, 0] == string
+indices[indices == True]
+
+start_annual = factor_df[indices].index[0]
+
+factor_df = factor_df[factor_df.index < start_annual]
+factor_df = factor_df.dropna()
+
+factor_df['date'] = pd.to_datetime(factor_df['date'], format='%Y%m').dt.strftime("%Y-%m")
+factor_df = factor_df.set_index('date')
+
+asset = 'FB'
+start_date= '2013-12-31'
+end_date = '2018-12-31'
+
+factor_df = factor_df.loc[start_date:end_date]
+factor_df.info()
+
+# convert to numeric
+pd.to_numeric(factor_df.mkt)
+
+factor_df = factor_df.apply(pd.to_numeric)
+factor_df.info()
+factor_df = factor_df/100
+
+fb_df = yf.download(asset, start = start_date, end = end_date, adjusted = True)
+y = fb_df['Adj Close'].resample('M').last().pct_change().dropna()
+y.index = y.index.strftime('%Y-%m')
+y.name = 'rtn'
+
+ff_data = factor_df.join(y)
+ff_data['excess_rtn'] = ff_data['rtn'] - ff_data['rf'] 
+
+y = yf.download('TSLA', start=start_date, end=end_date, adjusted=True, progress=False)
+y.index = y.index.strftime('%Y-%m') # excludes day from the index 
+
+y.name = 'return' # rename a series
+ 
+df.dtypes
+
+df.memory_usage(deep=True) / 1024 ** 2 # to be in MB
+
+df.describe().transpose().round(2)
+df.describe(include='object').transpose() #describes only categorical
+df.describe(include='all')
 
 
