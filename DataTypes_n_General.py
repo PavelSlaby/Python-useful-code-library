@@ -1,10 +1,17 @@
-##%  Playing with the Code and miscellaneous
-' tips and tricks: pres Tab after writing a dot after an object to get help
+# idea is to store interesting/new/useful code for future reference
+#python:
+    # - multiparadigm approach -can write code in procedural, object oriented, functional or imperative manner
+    # - interpreted
+    # - Dynamically typed - Types in Python are in general inferred at runtime and not statically declared
 
-a = [1, 2]
-b = a
-id(a)
-id(b) #memory adress of the object is same for b and a
+
+#%%  Playing with the Code and miscellaneous
+' tips and tricks: pres Tab after writing a dot after an object to get help
+'''Indentation: The number of spaces is up to you as a programmer, but it has to be at least one. '''
+
+# a recommendation for a "default" style exists for Python, the PEP 8 (PEP = Python Enchancement Proposal)
+# https://www.python.org/dev/peps/pep-0008/
+
 
 import this # The Zen of Python
 
@@ -13,16 +20,18 @@ import this # The Zen of Python
 # examples of magic commands:
 %history
 %timeit 4 + 4 
-%time 2+5 #    Time execution of a Python statement or expression.
+%time 4 + 4 #Time execution of a Python statement or expression.
 %%python?
 %quickref # Quick reference of all IPython specific syntax and magics.
 
+import keyword
+keyword.kwlist #list of all curent reserved keywords in python
+
 ? #-> Introduction and overview of IPython's features.
 help() #Access Python's own help system.
+help(print) #specific help
 
 pip list #list all the packages installed on your system:
-
-'''Indentation: The number of spaces is up to you as a programmer, but it has to be at least one. '''
 
 print(input("vek:"))
 
@@ -35,7 +44,6 @@ def myfunc():
   global x
   x = "fantastic"
   print(x)
-
 
 def myfunc2():
   x = "fantastic"
@@ -50,18 +58,14 @@ x = 'not-fantastic'
 myfunc2()
 x # this time it was not rewritten
 
-o = 5
-isinstance(o, int) #checks whether it is the datatype indicated as a second parametr of the function
-
 try:
-    print(w)
     print(10/0)
 except: #executed if any error
     print("Yo, error message")
  
 try:
    print(1/0)
-   #print(w)
+   print(w)
 except ZeroDivisionError: #executed only if this specific error occurs only
     print("Yo, error: cant divide by zero")
       
@@ -93,27 +97,14 @@ bool(a) #but not defined returns error
 """Identity operators are used to compare the objects, 
 not if they are equal, but if they are actually the same object, with the same memory location: """
 
-4 is 5
+a = 5
+
+a is 5
 5 is not "a"
 a = 5
-b = a
+b = 5
 b is a
 
-"""
- List is a collection which is ordered and changeable. Allows duplicate members.
- Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
- Set is a collection which is unordered and unindexed. No duplicate members.
- Dictionary is a collection which is unordered, changeable and indexed. No duplicate members.
-"""
-
-# a recommendation for a "default" style exists for Python, the PEP 8 (PEP = Python Enchancement Proposal)
-# https://www.python.org/dev/peps/pep-0008/
-
-a = 990
-type(a)
-a.bit_length()
-
-dir(a) #all methods and attributes of an object
 
 ''' Data types
 Text Type:  	str
@@ -126,7 +117,7 @@ Binary Types: 	bytes, bytearray, memoryview
 '''
 
 all([1==1, 2==2, 3==4]) # returns true if all is true
-any([1==1, 2>5, 3==4]) # returns true if all is true
+any([1==1, 2>5, 3==4]) # returns true if any is true
 callable(1)
 callable(dir)
 
@@ -135,7 +126,41 @@ callable(dir)
 bool(~(1==2))
 bool(~(False))
 
+True and False
+True and True
+True or False
+not False
+True == True
+False == False
+
+x = 5
+y = x
+id(x) #identity function, adress of the variable in memory, #memory adress of the object is same for x and y
+id(y)
+z = 6
+id(z)
+
+a = 990
+type(a)
+isinstance(a, int) #checks whether it is the datatype indicated as a second parametr of the function
+
+
+dir(a) #all methods and attributes of an object
+
+"""
+ List is a collection which is ordered and changeable. Allows duplicate members.
+ Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+ Set is a collection which is unordered and unindexed. No duplicate members.
+ Dictionary is a collection which is unordered, changeable and indexed. No duplicate members.
+"""
+
 #%% Numbers 
+a = 10
+a.bit_length()
+b = 1000000000000000000000000000000000000000000000
+b.bit_length()
+b.denominator
+
 googol_number = 10 ** 100
 print(googol_number)
 
@@ -160,10 +185,10 @@ Decimal(b) + Decimal(0.1)
 Decimal(1) / Decimal(11)
 
 # alternative approach
-9 /3    
+9 / 3    
 %precision 10
 # floating precision for printing
-9 /3
+9 / 3
 
 z = -87.7e100
 x = 1j
@@ -173,9 +198,13 @@ int(10.9)
 int("1598")
 oct(10)
 hex(10)
+int(True)
+int(False)
+float(True)
+bool(0)
 
 import random
-print(random.randrange(1, 10))   # random number between 1 and 9 including
+print(random.randrange(1, 2))   # random number between 1 and 2 excluding the last number
 
 15 // 7  #floor division, rounds down automatically 
 
@@ -203,6 +232,11 @@ float('nan')
 
 #%% Strings
 t = 'this is a string'
+t = '''this is 
+a string
+over several rows
+'''
+
 t.split(" ") 
 t.split("a") 
 
@@ -216,7 +250,7 @@ t.index('g')
 
 # plenty of more methods...
 t.count('s')
-t.replace('string', 'cat')
+t.replace('s', 'cat', 2)
 
 t.find(' ')
 t.find('wx') #-1 there is none
@@ -240,21 +274,32 @@ print(a[1:10])
 
 x = "Python is " 
 y = "awesome"
-print(x + y)
+print(x + y, end = ' XoX ')
 
 "a".replace("a", "b")
 "a" in "ahoj"
 
+#There is the old way, via the % character, and the new way, via curly braces ({}) and format().
 quantity = 3
 itemno = 567
 price = 49.95
 print("I want to pay %i dollars for %i pieces of item %f."%(quantity, itemno, price))
+print("I want to pay %15i dollars for %i pieces of item %f."%(quantity, itemno, price))
 
 myorder = "I want to pay {2} dollars for {0} pieces of item {1}." #newer way then with the % character
 print(myorder.format(quantity, itemno, price))
 
-myorder = "I want {} pieces of item {} for {} dollars."
+myorder = "I want {:08.2f} pieces of item {} for {} dollars."
 print(myorder.format(quantity, itemno, price))
+
+'I have {:08.2f}'.format(2)
+
+C = 10.65484
+'this is a variable: %d'% C
+print('Value of the European call option: {:.4f}.'.format(C))  
+'Value of the European call option: {}.'.format(C)  
+print('Value of the European call option %09.3f.' % C)
+'this is a float {:.2f}'.format(15.3456)
 
 "We are the so-called \"Vikings\" from the north."
 
@@ -278,12 +323,16 @@ for i in range(10):
 ## Tuples
 a = [5]
 t = (a, 'aba', 12, 1.20)
-t = a, 'aba', 12, 1.20
+t = a, 'aba', 12, 1.20 # no need for brackets
+a = (t, 6, 5)
+b = (*t, 6, 5) #astericks "unpacks" the tuple
+c = t + (6, 5) #same effect as unpacking
+
 print(t)
 type(t)
 t[1]
 t[0]
-t[0:1]
+t[0:1][0]
 type(t[3])
 t.index(12)
 t.count(12)
@@ -303,9 +352,10 @@ type(k)
 k = list(k)
 
 print(l[2])
-l.append([2, 'ahoj'])
+l.append([2, 'ahoj']) #appends by the list
+l.append('a') 
 print(l)
-l.extend([2, 'ahoj'])
+l.extend([2, 'ahoj']) #extends by the objects in the list
 
 l.insert(1, 'prvni pozice')
 
@@ -322,11 +372,14 @@ l.reverse()
 list1 = ['a', 'b', 'c']
 
 list1.pop()
-list1.pop(1)
-list1.pop(1)
+list1.pop(0)
+list1.pop(2)
+
+list1.index('a')
+list1.index('a', 1, 3)
 
 l = [a for a in range(20)]
-l[0:20:2] = 'samthingbo' # replace evert k-th
+l[0:20:2] = 'samthingbo' # replace ever k-th
 del l[0:20:2] #deletes every kth 
 
 del list1[1]
@@ -351,6 +404,13 @@ m
 mylist = ["a", "b", "a", "c", "c"]
 mylist = list(dict.fromkeys(mylist))
 
+#reverse a list using reversed
+for i in reversed([5, 6]):
+    print(i)
+
+a = [5, 6]
+a.reverse()
+a
 
 #%% dicts
 d = {
@@ -364,6 +424,14 @@ c = {
      'POTUS' : 'Donald',
      'status' : 'democracy'
      }
+
+c['country']
+c[['country', 'status']]
+
+list1 = ['country', 'status']
+for i in list1:
+    print(c[i])
+
 
 print(d)
 type(d)
@@ -397,6 +465,7 @@ for numbers,items in enumerate(dict):
     print(numbers)
     print(items)
 
+c.clear()
 
 #%% Sets
 #A set is a collection which is unordered and unindexed
@@ -416,6 +485,8 @@ set2 = s.union(set(['b', 'u']), s)
 set2
 
 s.intersection(set2)
+set2.difference(s) #items in set2 but not in set s
+
 u = {'v', 'u'}
 
 u.symmetric_difference(s) #items in one or the other but not in both
@@ -555,6 +626,11 @@ adults = filter(myFunc, ages)
 for x in adults:
   print(x)
 
+adults = filter(myFunc, ages)
+
+list(adults)
+
+
 #%% Iterators
 
 list1 = [1, 2, 3, 4 ]
@@ -562,25 +638,78 @@ i = iter(list1)
 next(i)  
 
 
-#%% Classes
+#%% Classes, OOP
+
+class FinInst(object): #simplest class
+    pass
+
+FI = FinInst()
+type(FI)
+FI
+FI.price = 100
+FI.price #So-called data attributes — in contrast to regular attributes — can be defined on the fly for every object.
+
 class myClass:
     x = 5
     
 p1 = myClass()
 p1.x
 
-class trida:
-    def __init__(self, name, age):
-      self.name1 = name
-      self.age1 = age
-        
-p1 = trida("Ja", 27)
-
-p1.name1
-p1.age1 
 
 """The self parameter is a reference to the current instance of the class.
 It does not have to be named self, but it has to be the first parameter of any function in the class: """
+
+class FI():
+    def __init__(self, smbl, prc):
+        self.symbol = smbl
+        self.price = prc
+    
+a = FI('aapl', 600)
+a.symbol
+a.price
+a.prc
+
+class Inst():
+    def __init__(self, symbl, prc):
+        self.symbol = symbl
+        self.__price = prc #private
+    def getprc(self):
+        return self.__price
+  
+b = Inst('aapl', 0)        
+b.symbol
+b.__price #private!! 
+b.getprc()
+b._Inst__price # If the class name is prepended with a single leading underscore, direct access and manipulation are still possible.
+b._Inst__price = 500
+
+class FinInstrument(FI): #inherits FI
+    def getprice(self):
+        return self.price
+    def setprice(self, price):
+        self.price = price
+
+inst = FinInstrument('aapl', '800')
+inst.symbol
+inst.price
+inst.getprice()
+inst.setprice()
+inst.setprice(900)
+
+#example of aggregation
+class PortPos():
+    def __init__(self, FinInstrument, size):
+        self.size = size
+        self.position = FinInstrument
+    def portval(self):
+        return self.size * self.position.getprice()
+
+p = PortPos(inst, 10)
+p.size  
+p.position.getprice()
+p.position.symbol
+p.portval()
+
 
 class trida2:
     def __init__(self, prom1, prom2):
@@ -611,15 +740,6 @@ o1.v1
 
      
 #there are more complicated syntax for inheritance.....
-    
-#%% Misc
 
-import numpy as np
-returns = np.array([1, 2])
-
-print(f'Avg return: {100 * returns.mean():.2f}')
-
-RISKY_ASSETS = ['GOOG', 'FB']
-f'{" vs. ".join(RISKY_ASSETS)}'
 
 
