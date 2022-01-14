@@ -123,6 +123,26 @@ time_sleep(3)
 
 
 
+# decorators using classes
+
+class decorator_class():
+   def __init__(self, function):
+       self.function = function
+
+   def __call__(self, *args):
+       product = args[0] * args[1]
+       print("Product of {} and {} is {} ".format(args[0], args[1], product))
+       return self.function(args[0], args[1])
+
+
+def add(num1, num2):
+   value = num1 + num2
+   print("The sum of {} and {} is {}.".format(num1, num2, value))
+
+decorator_object = decorator_class(add)
+decorator_object(10, 20)
+
+
 
 
 
