@@ -18,12 +18,15 @@ np.__version__
 
 a = np.array([0, 0.5, 10 , 0])
 
-type(a)
+type(a) #is type ndarray, but do not use np.ndarray to create it
+type(np.array(m)) # type is list, but can use follwoing:
+m = np.asarray(m)
+ 
 a.dtype
 
-a[0]
+a[0] # rows
 a[-1]
-a[1::2]
+a[0::2] #from 0 line to the end every second
 a[::2]
 a[1:4:2]
 a[:2]
@@ -45,6 +48,8 @@ b.sum(axis=0) #sum columnwise - same as pandas
 b.sum(axis=1) #sum rownwise - same as pandas
 b.sum() == b.sum(axis = None)
 
+np.array(range(10))
+
 b = np.array([a, a * 2])
 print(b)
 
@@ -53,6 +58,8 @@ b[1][2]
 b[1, 2] #same as b[1][2]
 
 b[0,2] == b[0][2] #!!!
+
+np.zeros(5)
 
 np.zeros((5, 2, 3))
 np.zeros([5, 2, 3]) #works sboth using brackets and parentheses
@@ -83,10 +90,12 @@ nd
 a = np.array([1, 2, 4, 3])
 w = a.copy()
 c = a.view()
+b = a
 
 a[0]= 100 
 a
-c # c is a view - has changed
+c  # c is a view - has changed
+b  # c is a view - has changed  - although does not have a b.base
 w # w is a copy - did not change
 print(c.base) #view returns the original array
 print(w.base) #the copy returns none
@@ -124,6 +133,7 @@ cr
 
 o = np.array(np.vstack([range(10), range(10)]))
 np.where(o == 3)
+np.where(o == 1, o, 5)
 o
 np.sort([10, 4, 5, 6])
 p = np.array(range(10))
@@ -185,8 +195,6 @@ def f(x):
 
 f(3)
 f(np.array([2, 2, 3]))
-
-
 
 #%%
 from numpy import random
