@@ -68,3 +68,34 @@ platform.uname()
 platform.python_version()
 platform.processor()
 platform.machine()
+
+
+
+## PDF management
+#there are several libraries:
+# textract #works with RLA
+# tika - needs java
+# fitz  does not work 
+# best is probaly pdfminer.six
+
+# PyPDF4 works well with some PDFs but poorly with others
+import PyPDF4
+ 
+# creating a pdf file object
+pdfFileObj = open('text.pdf', 'rb')
+ 
+pdfReader = PyPDF4.PdfFileReader(pdfFileObj)
+
+password = "vbhe3h"    
+if pdfReader.isEncrypted:
+    pdfReader.decrypt(password)
+
+# printing number of pages in pdf file
+print(pdfReader.numPages)
+ 
+# creating a page object
+for i in range(0, 9):
+    pageObj = pdfReader.getPage(i)
+    print(pageObj.extractText())
+ 
+
