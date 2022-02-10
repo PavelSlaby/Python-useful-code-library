@@ -86,7 +86,7 @@ pdfFileObj = open('text.pdf', 'rb')
  
 pdfReader = PyPDF4.PdfFileReader(pdfFileObj)
 
-password = "vbhe3h"    
+password = ""    
 if pdfReader.isEncrypted:
     pdfReader.decrypt(password)
 
