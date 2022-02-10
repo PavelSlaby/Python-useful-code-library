@@ -73,7 +73,7 @@ platform.machine()
 
 ## PDF management
 #there are several libraries:
-# textract #works with RLA
+# textract #works well
 # tika - needs java
 # fitz  does not work 
 # best is probaly pdfminer.six
