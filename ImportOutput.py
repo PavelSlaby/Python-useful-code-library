@@ -1,7 +1,7 @@
 import os
 os.getcwd()
 os.chdir('f:\\_Python')
-
+ 
 file = 'f:\\_Python\pokus.xlsx'
 file2 = 'f:\\_Python\pokus.txt'
 
