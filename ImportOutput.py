@@ -1,15 +1,19 @@
 import os
+
 os.getcwd()
 os.chdir('f:\\_Python')
- 
+
 file = 'f:\\_Python\pokus.xlsx'
 file2 = 'f:\\_Python\pokus.txt'
+
+folder = 'f:\\_Python'
+os.listdir(folder)  # lists all subfolders and files
 
 f = open(file2, "r")
 
 print(f.read())
-print(f.read(5)) #specify how many characters to return
-print(f.readline()) #it iterates
+print(f.read(5))  # specify how many characters to return
+print(f.readline())  # it iterates
 
 # to go through the whole file line by line
 for i in open(file2, "r"):
@@ -25,7 +29,7 @@ f.close()
 '''
 
 a = open(file2, 'a')
-a.write('just added a line  ') # returns the number of signs
+a.write('just added a line  ')  # returns the number of signs
 a.close()
 a = open(file2, 'r')
 print(a.read())
@@ -36,21 +40,21 @@ print(a.read())
 
 a = open('created_file.txt', 'x')
 
-a.close() # file has to be closed before being removed
+a.close()  # file has to be closed before being removed
 os.remove('created_file.txt')
 
 os.path.exists(file)
 
-os.rmdir() # removes a directory
+os.rmdir()  # removes a directory
 
 f1 = open("Test.txt", 'w')
 for i in range(10):
     f1.writelines(str(i) + ' ' + str(i ** 2) + '\n')
-     
-f1 = open("Test.txt", 'r')     
+
+f1 = open("Test.txt", 'r')
 f1.read()
 
-f1.close()    
+f1.close()
 
 if os.path.exists("Test.txt"):
     os.remove("Test.txt")
@@ -58,10 +62,10 @@ if os.path.exists("Test.txt"):
 os.mkdir("WorkingFiles")
 os.rmdir("WorkingFiles")
 
-
-#%% Platform
+# %% Platform
 
 import platform
+
 platform.system()
 dir(platform)
 platform.uname()
@@ -69,33 +73,14 @@ platform.python_version()
 platform.processor()
 platform.machine()
 
+# %% numpy
+
+np.random.normal(size=(10, 10))
+
+file = 'f:\\_Python\pokus.txt'
+np.save(file, np.random.normal(size=(10, 10)))
+
+np.load(file + '.npy')
 
 
-## PDF management
-#there are several libraries:
-# textract #works well
-# tika - needs java
-# fitz  does not work 
-# best is probaly pdfminer.six
-
-# PyPDF4 works well with some PDFs but poorly with others
-import PyPDF4
- 
-# creating a pdf file object
-pdfFileObj = open('text.pdf', 'rb')
- 
-pdfReader = PyPDF4.PdfFileReader(pdfFileObj)
-
-password = ""    
-if pdfReader.isEncrypted:
-    pdfReader.decrypt(password)
-
-# printing number of pages in pdf file
-print(pdfReader.numPages)
- 
-# creating a page object
-for i in range(0, 9):
-    pageObj = pdfReader.getPage(i)
-    print(pageObj.extractText())
- 
 
