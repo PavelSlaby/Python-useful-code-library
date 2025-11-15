@@ -27,18 +27,33 @@ math.nan == math.nan
 
 # %% TIME FUNCTIONS
 import datetime as dt
-import time as tm
+from datetime import date, datetime, timedelta
 
-tm.time()
-tm.time?
-tm.time() / (60 * 60 * 24 * 365)  # the year 1970 is the epoch
+'''
+Key classes:
+datetime.datetime – full timestamp (date + time)
+datetime.date – date only
+datetime.time – time only
+datetime.timedelta - time diff
+'''
 
-dtnow = dt.datetime.fromtimestamp(tm.time())
+
+dt.datetime(2022, 1, 1)
+dt.date(2022, 1, 1)
+dt.time(23, 59, 59)
+
+
+
+dtnow = dt.datetime.today()
+dtnow
 dtnow.month
 dtnow.year
 dtnow.day
 dtnow.strftime('%A')
 dtnow.strftime('%B')
+
+dtnow + timedelta(days=1)
+
 
 a = dt.datetime(2022, 4, 22, 11, 21)
 a.day
@@ -48,22 +63,22 @@ a.time()
 a.strftime('%m/%d/%Y %H:%M')
 a.strftime('%Y-%m-%d %H:%M')
 
-from datetime import datetime
 
-# Define the past date
-past_date = datetime.strptime('2024-07-24', '%Y-%m-%d')
+
+from datetime import datetime
 
 # Get today's date
 today = datetime.today()
+today
 
 # Calculate the duration
-duration = today - past_date
+duration = today - a
 
 # Print the duration in days
 print("Duration in days:", duration.days)
 
 datetime.strptime??
-
+datetime.strptime('2025-12-01', "%Y-%m-%d")
 
 
 dt.date.today()
@@ -101,3 +116,12 @@ import pandas as pd
 pd.date_range(start='2020-01-01', end='2022-01-01', freq='M')
 pd.date_range(start='2020-01-01', end='2022-01-01', freq='M').to_pydatetime()
 
+pd.to_datetime('2020-01-01')
+
+
+
+import time as tm
+tm.time()
+tm.time?
+tm.time() / (60 * 60 * 24 * 365)  # the year 1970 is the epoch
+tm.time() - tm.time()
