@@ -1,15 +1,37 @@
 import os
 
 os.getcwd()
-os.chdir('f:\\_Python')
+os.chdir('D:\\_Python')
 
-file = 'f:\\_Python\pokus.xlsx'
-file2 = 'f:\\_Python\pokus.txt'
+file1 = 'D:\\_Python\\pokus1.txt'
+file2 = r'D:\_Python\pokus2.txt'
 
-folder = 'f:\\_Python'
+
+folder = 'D:\\_Python'
 os.listdir(folder)  # lists all subfolders and files
 
-f = open(file2, "r")
+f = open('D:\_Python\pokus2.txt', "r") #does not work
+f = open(r'D:\_Python\pokus2.txt', "r") #works
+f = open('D:\\_Python\\pokus2.txt', "r") #works
+f = open('D:/_Python/pokus2.txt', "r") #also works
+
+'''
+"r" makes it a "raw string literal" -> python will treat \ as an escape character, otherwise it could treat \n as a new line
+\\ is also a literla backslash
+so python normally treats normal backslash \ as special characters - \n or \t
+'''
+
+#or the BEST is to use pathlib - works on windowns/mac/linux without changes + easy for joining paths
+
+from pathlib import Path
+f = open(Path(r'D:\_Python\pokus2.txt'), "r")
+
+folder  = Path(r'D:\_Python')
+file = folder / "pokus2.txt"
+
+f = open(file, "r")
+
+
 
 print(f.read())
 print(f.read(5))  # specify how many characters to return
@@ -36,6 +58,11 @@ print(a.read())
 
 a = open(file2, 'w')
 a.write('just rewrote the file')
+a.close()
+a = open(file2, 'r')
+print(a.read())
+
+
 print(a.read())
 
 a = open('created_file.txt', 'x')
@@ -59,11 +86,10 @@ f1.close()
 if os.path.exists("Test.txt"):
     os.remove("Test.txt")
 
-os.mkdir("WorkingFiles")
-os.rmdir("WorkingFiles")
+os.mkdir("WorkingFiles") #creates new directory
+os.rmdir("WorkingFiles") #removed directory
 
 # %% Platform
-
 import platform
 
 platform.system()
@@ -73,14 +99,43 @@ platform.python_version()
 platform.processor()
 platform.machine()
 
-# %% numpy
+#pandas
+import pandas as pd
 
-np.random.normal(size=(10, 10))
-
-file = 'f:\\_Python\pokus.txt'
-np.save(file, np.random.normal(size=(10, 10)))
-
-np.load(file + '.npy')
+sheet1 = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+sheet2 = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
 
 
+#excel
+file_name_xls = 'example.xlsx'
+sheet1 .to_excel(file_name_xls, sheet_name='Example1', )
+
+with pd.ExcelWriter(file_name_xls) as writer:
+    sheet1.to_excel(writer, sheet_name='Sheet1')
+    sheet2.to_excel(writer, sheet_name='Sheet2')
+
+
+pd.read_excel(file_name_xls, sheet_name='Sheet1', index_col=0, header= None)
+
+#csv
+file_name_csv = 'example_csv.csv'
+sheet1.to_csv(file_name_csv)
+pd.read_csv(file_name_csv)
+
+sheet1.to_csv(file_name_csv, index=False, sep= ',')
+pd.read_csv(file_name_csv)
+
+#shutil
+import shutil
+
+src = Path(r'D:\_Python\pokus2.txt')
+dst = Path(r'D:\_Python\pokus\pokus2.txt')
+
+shutil.move(src, dst)
+shutil.move(dst, src) #and lets move it back
+
+shutil.copy(src, dst)
+
+src = Path(r'D:\_Python\pokus2.txt')
+src.exists()
 
