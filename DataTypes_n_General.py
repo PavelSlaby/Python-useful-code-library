@@ -1,6 +1,6 @@
 # idea is to store interesting/new/useful code for future reference
 # python:
-# - multiparadigm approach -can write code in procedural, object oriented, functional or imperative manner
+# - multiparadigm approach -can write code in procedural, object-oriented, functional or imperative manner
 # - interpreted
 # - Dynamically typed - Types in Python are in general inferred at runtime and not statically declared
 
@@ -14,25 +14,26 @@
 
 import this  # The Zen of Python
 
+#following might not work in all IDEs - ony in IPython
 %magic  # all available magic commands, with description
 %lsmagic  # short list of the previous
+
 # examples of magic commands:
 %clear
 %history
 %timeit
-4 + 4
+
 %time
 4 + 4  # Time execution of a Python statement or expression.
 %%python?
 %quickref  # Quick reference of all IPython specific syntax and magics.
 
 import keyword
-
-keyword.kwlist  # list of all curent reserved keywords in python
+keyword.kwlist  # list of all current reserved keywords in python
 
 ?  # -> Introduction and overview of IPython's features.
 help()  # Access Python's own help system.
-help(print)  # specific help
+help()  # specific help
 
 pip
 list  # list all the packages installed on your system:
@@ -85,6 +86,7 @@ else:
     print("its all good")  # printed only if no error occured
 finally:
     print("does not matter if it was error or not")
+
 
 if 1 == 1:
     raise Exception("equality")
@@ -142,7 +144,7 @@ x = 5
 y = x
 id(x)  # identity function, address of the variable in memory, #memory address of the object is same for x and y
 id(y)
-z = 6
+z = 5
 id(z)
 
 a = 990
@@ -155,7 +157,7 @@ dir(a)  # all methods and attributes of an object
  List is a collection which is ordered and changeable. Allows duplicate members.
  Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
  Set is a collection which is unordered and unindexed. No duplicate members.
- Dictionary is a collection which is unordered, changeable and indexed. No duplicate members.
+ Dictionary is a collection which is unordered, changeable and indexed. No duplicate members. - If here are duplicates, then it will always take the first one
 """
 
 # %% Numbers
@@ -182,7 +184,7 @@ from decimal import Decimal
 decimal.getcontext?
 decimal.getcontext()  # default precision is 28, can be changed, see below
 # Python itself runs on use the IEEE 754 double-precision standard — i.e., 64 bits   15 digit relative accuracy
-decimal.getcontext().prec = 41
+decimal.getcontext().prec = 150
 Decimal(b) + Decimal(0.1)
 
 1 / 11
@@ -222,6 +224,9 @@ x *= 10
 x /= 10
 x **= 3
 8 % 7
+i = 8 % 6 #modulo
+e = 8 / 7
+
 2 ** 2
 
 3 != 3
@@ -252,7 +257,7 @@ t.upper()
 t.lower()
 " Hello, World! ".strip()
 t.endswith('g')
-t.index('g')
+t.index('t')
 
 # plenty of more methods...
 t.count('s')
@@ -291,7 +296,8 @@ itemno = 567
 price = 49.95
 print("I want to pay %i dollars for %i pieces of item %f." % (quantity, itemno, price))
 
-myorder = "I want to pay {2} dollars for {0} pieces of item {1}."  # newer way then with the % character
+# newer way with {}
+myorder = "I want to pay {2} dollars for {0} pieces of item {1}."
 print(myorder.format(quantity, itemno, price))
 
 myorder = "I want {:08.2f} pieces of item {} for {} dollars."
@@ -305,6 +311,12 @@ print('Value of the European call option: {:.4f}.'.format(C))
 'Value of the European call option: {}.'.format(C)
 print('Value of the European call option %09.3f.' % C)
 'this is a float {:.2f}'.format(15.3456)
+
+#or maybe easiest is:
+
+a =  7
+f'Value of the European call option: {5}'
+f'Value of the European call option: {a}'
 
 "We are the so-called \"Vikings\" from the north."
 
@@ -333,13 +345,14 @@ for i in range(10):
 
 "Hello World"[::-2]
 
-# %%
+#%%
 ## Tuples
-a = [5]
+a = [5] #will be a list
+b = (5) #will not be a tuple - because it is only one item
 t = (a, 'aba', 12, 1.20)
 t = a, 'aba', 12, 1.20  # no need for parentheses
 a = (t, 6, 5)
-b = (*t, 6, 5)  # astericks "unpacks" the tuple
+b = (*t, 6, 5)  # asterisks "unpacks" the tuple
 c = t + (6, 5)  # same effect as unpacking
 
 print(t)
@@ -382,16 +395,17 @@ l[1:5:2] = 'gu'  # assigns the sequence on the right to the list on the left, on
 print(l)
 
 l.count('2')
-l.reverse()
+l.count(2)
+l.reverse() #permanent change
 
 list1 = ['a', 'b', 'c']
+
+list1.index('a')
+list1.index('a', 1, 3)
 
 list1.pop()
 list1.pop(0)
 list1.pop(2)
-
-list1.index('a')
-list1.index('a', 1, 3)
 
 l = [a for a in range(20)]
 l[0:20:2] = 'samthingbo'  # replace ever k-th
@@ -402,9 +416,9 @@ del a
 
 list2 = list1.copy()
 list3 = list1
-list3.clear()
+list3.clear() # clears both list 3 and list 1, but not list2 because that one is a hard copy
 
-list5 = list2 + list1
+list5 = list2 + list1 + list('b')
 
 list5.sort()
 sorted([2, 50, -9, 10])
@@ -438,10 +452,10 @@ c = {
     'country': 'usa',
     'POTUS': 'Donald',
     'status': 'democracy'
-}
+    }
 
 c['country']
-c[['country', 'status']]
+c['country', 'status']
 
 list1 = ['country', 'status']
 for i in list1:
@@ -481,7 +495,7 @@ for numbers, items in enumerate(dict):
 
 c.clear()
 
-# %% Sets
+#%% Sets
 # A set is a collection which is unordered and unindexed
 
 s = set(['u', 'd', 'u'])
@@ -571,19 +585,15 @@ else:
     print('finito')
 
 
-# %%  Functions
-
+#%%  Functions
 def myfunct(*args):  # if i do not know how many parameters will be passed
     print(args)
 
-
 # Arbitrary Arguments are often shortened to *args
-
 myfunct(4, 5, a)
 
 
 # keyword arguments = **kwargs
-
 def my_function(**kid):
     print("His last name is " + kid["lname"])
 
@@ -607,25 +617,20 @@ a(4, 5, 6, 1 == 1)
 def power(x):
     return x ** 2
 
-
 power(2)
-
 
 def addition(n):
     return n + n
-
 
 numbers = (1, 2, 3, 4)
 k = map(addition, numbers)
 print(list(k))
 
-
 def f():
     return True
 
-
 if f():
-    print("pravda")
+    print("truth")
 
 # Lambda -  A lambda function can take any number of arguments, but can only have one expression.
 x = lambda a: a + 10
@@ -634,10 +639,8 @@ x(10)
 x = lambda a, c: a ** c if 5 < 3 else c
 x(6, 2)
 
-
 def myfunc(n):
     return lambda a: a * n
-
 
 mydoubler = myfunc(2)
 mytripler = myfunc(3)
@@ -657,6 +660,7 @@ def myFunc(x):
 
 
 adults = filter(myFunc, ages)
+print(adults)
 
 for x in adults:
     print(x)
@@ -665,17 +669,15 @@ adults = filter(myFunc, ages)
 list(adults)
 
 # %% Iterators
-
 list1 = [1, 2, 3, 4]
 i = iter(list1)
 next(i)
 
 
-# %% Classes, OOP
+#%% Classes, OOP
 
 class FinInst(object):  # simplest class
     pass
-
 
 FI = FinInst()
 type(FI)
@@ -694,7 +696,6 @@ p1.x
 """The self parameter is a reference to the current instance of the class.
 It does not have to be named self, but it has to be the first parameter of any function in the class: """
 
-
 class FI():
     def __init__(self, smbl, prc):
         self.symbol = smbl
@@ -705,7 +706,6 @@ a = FI('aapl', 600)
 a.symbol
 a.price
 a.prc
-
 
 class Inst():
     def __init__(self, symbl, prc):
@@ -736,7 +736,6 @@ inst = FinInstrument('aapl', '800')
 inst.symbol
 inst.price
 inst.getprice()
-inst.setprice()
 inst.setprice(900)
 
 
