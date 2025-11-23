@@ -298,3 +298,33 @@ for i in range(2):
 
 
 
+
+# %% Plotting
+import matplotlib.pyplot as plt
+
+df.cumsum().plot(lw=2.0)
+
+numbers = pd.Series(data=[1, 22, 44, 65, 89, 75, 65, 78], name='Counts')
+numbers2 = pd.Series(data=[1, 23, 44, None, 9, 76, 65, 100], name='Counts2')
+
+pig = plt.figure()
+numbers.plot()
+numbers2.plot()
+plt.legend()
+
+# bar chart
+fig = plt.figure()
+numbers.plot(kind='bar')
+numbers2.plot(kind='bar', color='g', alpha=0.5)
+
+# histogram
+numbers.hist()
+
+numbers.plot(kind='kde')
+numbers.plot(kind='density')
+
+numbers.plot.area()  # two ways to specifiy the type of a graph, see below
+numbers.plot(kind='area')
+numbers.plot.barh()
+numbers.plot.box()
+numbers.plot(kind='pie')
