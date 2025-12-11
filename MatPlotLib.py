@@ -272,6 +272,8 @@ numbers2.plot(kind='bar', color='g', alpha=0.5)
 # histogram
 numbers.hist()
 
+
+
 numbers.plot(kind='kde')
 numbers.plot(kind='density')
 
