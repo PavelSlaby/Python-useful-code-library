@@ -21,17 +21,38 @@ f = open('D:/_Python/pokus2.txt', "r") #also works
 so python normally treats normal backslash \ as special characters - \n or \t
 '''
 
-#or the BEST is to use pathlib - works on windowns/mac/linux without changes + easy for joining paths
+#or the BEST is to use pathlib - works on windows/mac/linux without changes + easy for joining paths
 
 from pathlib import Path
-f = open(Path(r'D:\_Python\pokus2.txt'), "r")
+f = open(Path(r'D:\_Python\pokus2.txt'), "r") # this is one way to do it. Ideally I should close the file, so that other programs can access it.
+f.read()
+f.close()
+
+# but if something happens in between, the file might still not be accessible to other programs, so a better way is to use with:
+with open(r'D:\_Python\pokus2.txt', "r") as f: #it will automatically call the close statement when the execution leaves the block
+    print(f.read())
+
+
+
+'''
+ You can pass a string of a folder or filename to Path() to create a Path object of that folder or filename. 
+ As long as the leftmost object in an expression is a Path object, you can use the / operator to join together Path objects or strings.
+ Compare below
+'''
+
+Path('spam') / 'some_folder'
+Path('spam') / Path('some_folder')
+Path('spam') / Path('some_folder/a')
+Path('spam') / Path('some_folder','a')
+Path(r'.\spam')
+
+Path.home() # 'home' directory
+Path.cwd() #current working directory use oc.chdir() to change it...
 
 folder  = Path(r'D:\_Python')
 file = folder / "pokus2.txt"
 
 f = open(file, "r")
-
-
 
 print(f.read())
 print(f.read(5))  # specify how many characters to return
