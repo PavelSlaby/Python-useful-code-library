@@ -11,7 +11,6 @@
 # a recommendation for a "default" style exists for Python, the PEP 8 (PEP = Python Enchancement Proposal)
 # https://www.python.org/dev/peps/pep-0008/
 
-
 import this  # The Zen of Python
 
 #following might not work in all IDEs - ony in IPython
@@ -594,9 +593,8 @@ myfunct(4, 5, a)
 
 
 # keyword arguments = **kwargs
-def my_function(**kid):
-    print("His last name is " + kid["lname"])
-
+def my_function(**kwargs):
+    print("His last name is " + kwargs["lname"])
 
 my_function(fname="Tobias", lname="Refsnes")
 
@@ -647,6 +645,16 @@ mytripler = myfunc(3)
 
 print(mydoubler(11))
 print(mytripler(11))
+
+# Higher order function
+def math_operation(func, *args):
+    print(func(*args))
+
+math_operation(min, 1, 2, 3)
+math_operation(max, 1, 2, 3)
+
+list(map(lambda n:min(n), [[2, 1], [3, 4]]))
+
 
 # Filter
 ages = [5, 12, 17, 18, 24, 32]

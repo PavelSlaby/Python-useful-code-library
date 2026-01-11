@@ -32,6 +32,15 @@ f.close()
 with open(r'D:\_Python\pokus2.txt', "r") as f: #it will automatically call the close statement when the execution leaves the block
     print(f.read())
 
+print()
+
+
+numberOfPets = {'dogs': 2, 'cats': 3}
+if 'cats' in numberOfPets:
+    print('I have', numberOfPets['cats'], 'cats.', 'eehe')
+else:
+    print('I have 0 cats.')
+
 
 
 '''
