@@ -37,6 +37,11 @@ help()  # specific help
 pip
 list  # list all the packages installed on your system:
 
+
+print(keyword.__doc__) #  Gets docstring from a module/class/function
+help(keyword)
+
+
 print(input("vek:"))
 
 # In Python, variables are created when you assign a value to it:
@@ -590,6 +595,13 @@ def myfunct(*args):  # if i do not know how many parameters will be passed
 
 # Arbitrary Arguments are often shortened to *args
 myfunct(4, 5, a)
+
+#type hints
+def random_func(x:int) -> str:
+    if x < 0: return 'negative'
+    if x > 0: return 'positive'
+
+random_func(True)  #  the type hint can be violated and the code still runs, the IDE ignores type hints
 
 
 # keyword arguments = **kwargs
