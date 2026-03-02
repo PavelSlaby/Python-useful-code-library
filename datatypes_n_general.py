@@ -25,33 +25,6 @@ x = 'not-fantastic'
 myfunc2()
 x  # this time it was not rewritten
 
-try:
-    print(10 / 0)
-except:  # executed if any error
-    print("Yo, error message")
-
-try:
-    print(1 / 0)
-    print(w)
-except ZeroDivisionError:  # executed only if this specific error occurs only
-    print("Yo, error: cant divide by zero")
-
-try:
-    print(1 / 1)
-    print(1 / 0)
-except ZeroDivisionError:
-    print("error - cant divide by zero, duh ")
-else:
-    print("its all good")  # printed only if no error occured
-finally:
-    print("does not matter if it was error or not")
-
-
-if 1 == 1:
-    raise Exception("equality")
-
-if 2 == 2:
-    raise TypeError("Type error equality")
 
 """
 Any string is True, except empty strings.
@@ -75,9 +48,7 @@ b is a
 ''' Data types
 Text Type:  	str
 Numeric Types: 	int, float, complex
-Sequence Types: list, tuple, range
-Mapping Type: 	dict
-Set Types:  	set, frozenset
+
 Boolean Type: 	bool
 Binary Types: 	bytes, bytearray, memoryview
 '''
@@ -112,12 +83,12 @@ isinstance(a, int)  # checks whether it is the datatype indicated as a second pa
 
 dir(a)  # all methods and attributes of an object
 
-"""
- List is a collection which is ordered and changeable. Allows duplicate members.
- Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
- Set is a collection which is unordered and unindexed. No duplicate members.
- Dictionary is a collection which is unordered, changeable and indexed. No duplicate members. - If here are duplicates, then it will always take the first one
-"""
+# """
+#  List is a collection which is ordered and changeable. Allows duplicate members.
+#  Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+#  Set is a collection which is unordered and unindexed. No duplicate members.
+#  Dictionary is a collection which is unordered, changeable and indexed. No duplicate members. - If here are duplicates, then it will always take the first one
+# """
 
 # %% Numbers
 a = 10
@@ -306,99 +277,99 @@ for i in range(10):
 
 #%%
 ## Tuples
-a = [5] #will be a list
-b = (5) #will not be a tuple - because it is only one item
-t = (a, 'aba', 12, 1.20)
-t = a, 'aba', 12, 1.20  # no need for parentheses
-a = (t, 6, 5)
-b = (*t, 6, 5)  # asterisks "unpacks" the tuple
-c = t + (6, 5)  # same effect as unpacking
+# a = [5] #will be a list
+# b = (5) #will not be a tuple - because it is only one item
+# t = (a, 'aba', 12, 1.20)
+# t = a, 'aba', 12, 1.20  # no need for parentheses
+# a = (t, 6, 5)
+# b = (*t, 6, 5)  # asterisks "unpacks" the tuple
+# c = t + (6, 5)  # same effect as unpacking
 
-print(t)
-type(t)
-t[1]
-t[0]
-t[0:1][0]
-type(t[3])
-t.index(12)
-t.count(12)
+# print(t)
+# type(t)
+# t[1]
+# t[0]
+# t[0:1][0]
+# type(t[3])
+# t.index(12)
+# t.count(12)
 
-# To create a tuple with only one item, add a comma after the item, otherwise Python will not recognize it as a integer/string.
-a = ('a')
-a = ('a',)
+# # To create a tuple with only one item, add a comma after the item, otherwise Python will not recognize it as a integer/string.
+# a = ('a')
+# a = ('a',)
+#
+# tupl = (4, 5, 6)
+# tupl[1] = 6  # expected error
 
-tupl = (4, 5, 6)
-tupl[1] = 6  # expected error
+# # %% ## Lists
+# l = [1, 2, 3, 'date']  # 'BRACKET
+# k = (1, 2, 2, 'date')  # 'PARENTHESES
+# type(l)
+# type(k)
+# k = list(k)
+# tuple(k)
+#
+# print(l[2])
+# l.append([2, 'ahoj'])  # appends by the list
+# l.append('a')
+# print(l)
+# l.extend([2, 'ahoj'])  # extends by the objects in the list
+#
+# l.insert(1, 'prvni pozice')
+#
+# l.remove('ahoj')  # removes only the first ocurence
+# l[2:4]
+# l[3] = 5
 
-# %% ## Lists
-l = [1, 2, 3, 'date']  # 'BRACKET
-k = (1, 2, 2, 'date')  # 'PARENTHESES
-type(l)
-type(k)
-k = list(k)
-tuple(k)
+# l[1:5:2] = 'gu'  # assigns the sequence on the right to the list on the left, one sign at a time
+# print(l)
+#
+# l.count('2')
+# l.count(2)
+# l.reverse() #permanent change
 
-print(l[2])
-l.append([2, 'ahoj'])  # appends by the list
-l.append('a')
-print(l)
-l.extend([2, 'ahoj'])  # extends by the objects in the list
-
-l.insert(1, 'prvni pozice')
-
-l.remove('ahoj')  # removes only the first ocurence
-l[2:4]
-l[3] = 5
-
-l[1:5:2] = 'gu'  # assigns the sequence on the right to the list on the left, one sign at a time
-print(l)
-
-l.count('2')
-l.count(2)
-l.reverse() #permanent change
-
-list1 = ['a', 'b', 'c']
-
-list1.index('a')
-list1.index('a', 1, 3)
-
-list1.pop()
-list1.pop(0)
-list1.pop(2)
-
-l = [a for a in range(20)]
-l[0:20:2] = 'samthingbo'  # replace ever k-th
-del l[0:20:2]  # deletes every kth
-
-del list1[1]
-del a
-
-list2 = list1.copy()
-list3 = list1
-list3.clear() # clears both list 3 and list 1, but not list2 because that one is a hard copy
-
-list5 = list2 + list1 + list('b')
-
-list5.sort()
-sorted([2, 50, -9, 10])
-
-list5.__len__()
-
-## list comprehensions
-m = [i ** 2 for i in range(6)]
-m
-
-# remove duplicates from a list
-mylist = ["a", "b", "a", "c", "c"]
-mylist = list(dict.fromkeys(mylist))
-
-# reverse a list using reversed
-for i in reversed([5, 6]):
-    print(i)
-
-a = [5, 6]
-a.reverse()
-a
+# list1 = ['a', 'b', 'c']
+#
+# list1.index('a')
+# list1.index('a', 1, 3)
+#
+# list1.pop()
+# list1.pop(0)
+# list1.pop(2)
+#
+# l = [a for a in range(20)]
+# l[0:20:2] = 'something'  # replace ever k-th
+# del l[0:20:2]  # deletes every kth
+#
+# del list1[1]
+# del a
+#
+# list2 = list1.copy()
+# list3 = list1
+# list3.clear() # clears both list 3 and list 1, but not list2 because that one is a hard copy
+#
+# list5 = list2 + list1 + list('b')
+#
+# list5.sort()
+# sorted([2, 50, -9, 10])
+#
+# list5.__len__()
+#
+# ## list comprehensions
+# m = [i ** 2 for i in range(6)]
+# m
+#
+# # remove duplicates from a list
+# mylist = ["a", "b", "a", "c", "c"]
+# mylist = list(dict.fromkeys(mylist))
+#
+# # reverse a list using reversed
+# for i in reversed([5, 6]):
+#     print(i)
+#
+# a = [5, 6]
+# a.reverse()
+# a
 
 # %% dicts
 d = {

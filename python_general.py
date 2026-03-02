@@ -1,5 +1,5 @@
 
-'''
+"""
 - Python uses
     - multiparadigm approach -can write code in procedural, object-oriented, functional or imperative manner
     - interpreted
@@ -18,38 +18,39 @@
         - Constant variables: SNAKE_CASE
         - function, methods, variables: lowercase snake_case
 
-'''
+    - because code is read more often then written, its safer to err on the side of too long variable names
 
-import this  # The Zen of Python
+"""
 
+# The Zen of Python
+import this
 
-#following might not work in all IDEs - ony in IPython
-%magic  # all available magic commands, with description
-%lsmagic  # short list of the previous
+#IPython magics - might not work in all IDEs - ony in IPython
+%magic      # all available magic commands, with description
+%lsmagic    # short list of the previous
+%cd?        # help on a specific magic
 
 # examples of magic commands:
 %clear
 %history
-%timeit
-
-%time
-4 + 4  # Time execution of a Python statement or expression.
-%%python?
-%quickref  # Quick reference of all IPython specific syntax and magics.
+%timeit  4+4
+%time 4 + 4     # Time execution of a Python statement or expression.
+%quickref       # Quick reference of all IPython specific syntax and magics.
 
 import keyword
 keyword.kwlist  # list of all current reserved keywords in python
 
 ?  # -> Introduction and overview of IPython's features.
 help()  # Access Python's own help system.
-help()  # specific help
+help(str)  # specific help
 
 pip
-list  # list all the packages installed on your system:
-
 
 print(keyword.__doc__) #  Gets docstring from a module/class/function
 help(keyword)
 
-
 print(input("vek:"))
+
+
+
+
