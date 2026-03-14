@@ -83,13 +83,6 @@ isinstance(a, int)  # checks whether it is the datatype indicated as a second pa
 
 dir(a)  # all methods and attributes of an object
 
-# """
-#  List is a collection which is ordered and changeable. Allows duplicate members.
-#  Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
-#  Set is a collection which is unordered and unindexed. No duplicate members.
-#  Dictionary is a collection which is unordered, changeable and indexed. No duplicate members. - If here are duplicates, then it will always take the first one
-# """
-
 # %% Numbers
 a = 10
 a.bit_length()
@@ -172,30 +165,6 @@ abs(-5)
 float('nan')
 
 # %% Strings
-t = 'this is a string'
-t = '''this is 
-a string 
-over several rows
-'''
-
-t.split(" ")
-t.split("a")
-
-type(t.split())
-t.capitalize()
-t.upper()
-t.lower()
-" Hello, World! ".strip()
-t.endswith('g')
-t.index('t')
-
-# plenty of more methods...
-t.count('s')
-t.replace('s', 'cat', 2)
-
-t.find(' ')
-t.find('wx')  # -1 there is none
-
 'http://www.python.org/'.strip('http:/')
 
 MyTuple = ('-a', 'b', 'c-')
@@ -619,120 +588,120 @@ list1 = [1, 2, 3, 4]
 i = iter(list1)
 next(i)
 
-
-#%% Classes, OOP
-
-class FinInst(object):  # simplest class
-    pass
-
-FI = FinInst()
-type(FI)
-FI
-FI.price = 100
-FI.price  # So-called data attributes — in contrast to regular attributes — can be defined on the fly for every object.
-
-
-class myClass:
-    x = 5
-
-
-p1 = myClass()
-p1.x
-
-"""The self parameter is a reference to the current instance of the class.
-It does not have to be named self, but it has to be the first parameter of any function in the class: """
-
-class FI():
-    def __init__(self, smbl, prc):
-        self.symbol = smbl
-        self.price = prc
-
-
-a = FI('aapl', 600)
-a.symbol
-a.price
-a.prc
-
-class Inst():
-    def __init__(self, symbl, prc):
-        self.symbol = symbl
-        self.__price = prc  # private
-
-    def getprc(self):
-        return self.__price
-
-
-b = Inst('aapl', 10)
-b.symbol
-b.__price  # private!!
-b.getprc()
-b._Inst__price  # If the class name is prepended with a single leading underscore, direct access and manipulation are still possible.
-b._Inst__price = 500
-
-
-class FinInstrument(FI):  # inherits FI
-    def getprice(self):
-        return self.price
-
-    def setprice(self, price):
-        self.price = price
-
-
-inst = FinInstrument('aapl', '800')
-inst.symbol
-inst.price
-inst.getprice()
-inst.setprice(900)
-
-
-# example of aggregation
-class PortPos():
-    def __init__(self, FinInstrument, size):
-        self.size = size
-        self.position = FinInstrument
-
-    def portval(self):
-        return self.size * self.position.getprice()
+#
+# %% Classes, OOP
+#
+# class FinInst(object):  # simplest class
+#     pass
+#
+# FI = FinInst()
+# type(FI)
+# FI
+# FI.price = 100
+# FI.price  # So-called data attributes — in contrast to regular attributes — can be defined on the fly for every object.
+#
+#
+# class myClass:
+#     x = 5
+#
+#
+# p1 = myClass()
+# p1.x
+#
+# """The self parameter is a reference to the current instance of the class.
+# It does not have to be named self, but it has to be the first parameter of any function in the class: """
+#
+# class FI():
+#     def __init__(self, smbl, prc):
+#         self.symbol = smbl
+#         self.price = prc
+#
+#
+# a = FI('aapl', 600)
+# a.symbol
+# a.price
+# a.prc
+#
+# class Inst():
+#     def __init__(self, symbl, prc):
+#         self.symbol = symbl
+#         self.__price = prc  # private
+#
+#     def getprc(self):
+#         return self.__price
+#
+#
+# b = Inst('aapl', 10)
+# b.symbol
+# b.__price  # private!!
+# b.getprc()
+# b._Inst__price  # If the class name is prepended with a single leading underscore, direct access and manipulation are still possible.
+# b._Inst__price = 500
+#
+#
+# class FinInstrument(FI):  # inherits FI
+#     def getprice(self):
+#         return self.price
+#
+#     def setprice(self, price):
+#         self.price = price
+#
+#
+# inst = FinInstrument('aapl', '800')
+# inst.symbol
+# inst.price
+# inst.getprice()
+# inst.setprice(900)
 
 
-p = PortPos(inst, 10)
-p.size
-p.position.getprice()
-p.position.symbol
-p.portval()
+# # example of aggregation
+# class PortPos():
+#     def __init__(self, FinInstrument, size):
+#         self.size = size
+#         self.position = FinInstrument
+#
+#     def portval(self):
+#         return self.size * self.position.getprice()
+#
+#
+# p = PortPos(inst, 10)
+# p.size
+# p.position.getprice()
+# p.position.symbol
+# p.portval()
 
 
-class trida2:
-    def __init__(self, prom1, prom2):
-        self.v1 = len(prom1)
-        self.v2 = prom2
-
-    def myfunct(self):
-        print("Hello " + str(self.v1) + " World " + self.v2)
-
-
-t1 = trida2("bitches", "here i come")
-
-t1.v1  # object properties
-t1.v2
-t1.myfunct()  # object method
-
-t1.v1 = "Ladies"
-t1.v1
-
-trida2.__init__
-del t1.v1
-
-
-# Creating a child class
-class t2(trida2):
-    pass  # Use the pass keyword when you do not want to add any other properties or methods to the class.
-
-
-o1 = t2("Show__", "Manship")
-o1.v1
-
-# there are more complicated syntax for inheritance.....
-
-
+# class trida2:
+#     def __init__(self, prom1, prom2):
+#         self.v1 = len(prom1)
+#         self.v2 = prom2
+#
+#     def myfunct(self):
+#         print("Hello " + str(self.v1) + " World " + self.v2)
+#
+#
+# t1 = trida2("bitches", "here i come")
+#
+# t1.v1  # object properties
+# t1.v2
+# t1.myfunct()  # object method
+#
+# t1.v1 = "Ladies"
+# t1.v1
+#
+# trida2.__init__
+# del t1.v1
+#
+#
+# # Creating a child class
+# class t2(trida2):
+#     pass  # Use the pass keyword when you do not want to add any other properties or methods to the class.
+#
+#
+# o1 = t2("Show__", "Manship")
+# o1.v1
+#
+# # there are more complicated syntax for inheritance.....
+#
+#
 
