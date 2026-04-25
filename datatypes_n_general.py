@@ -341,82 +341,82 @@ for i in range(10):
 # a
 
 # %% dicts
-d = {
-    1: 'A',
-    2: 'B',
-    3: 'C'
-}
+# d = {
+#     1: 'A',
+#     2: 'B',
+#     3: 'C'
+# }
 
-c = {
-    'country': 'usa',
-    'POTUS': 'Donald',
-    'status': 'democracy'
-    }
-
-c['country']
-c['country', 'status']
-
-list1 = ['country', 'status']
-for i in list1:
-    print(c[i])
-
-print(d)
-type(d)
-
-print(d[1])
-print(c['POTUS'])
-
-c.keys()
-c.values()
-c.items()
-
-c.__getitem__('POTUS')
-
-for key, value in c.items():
-    print(key + str(' - ') + value)
-
-c.pop('status')
-
-dicti = dict()
-dicti['3'] = '3a'
-dicti
-dicti.pop('3')
-thisdict = dict(brand='Ford', model='F150')
-thisdict
-dicit2 = dict(dicti)  # how to copy not only dictionaries
-
-dict = ['a', 'b']
-enumerate(dict)
-
-for numbers, items in enumerate(dict):
-    print(numbers)
-    print(items)
-
-c.clear()
+# c = {
+#     'country': 'usa',
+#     'POTUS': 'Donald',
+#     'status': 'democracy'
+#     }
+#
+# c['country']
+# c['country', 'status']
+#
+# list1 = ['country', 'status']
+# for i in list1:
+#     print(c[i])
+#
+# print(d)
+# type(d)
+#
+# print(d[1])
+# print(c['POTUS'])
+#
+# c.keys()
+# c.values()
+# c.items()
+#
+# c.__getitem__('POTUS')
+#
+# for key, value in c.items():
+#     print(key + str(' - ') + value)
+#
+# c.pop('status')
+#
+# dicti = dict()
+# dicti['3'] = '3a'
+# dicti
+# dicti.pop('3')
+# thisdict = dict(brand='Ford', model='F150')
+# thisdict
+# dicit2 = dict(dicti)  # how to copy not only dictionaries
+#
+# dict = ['a', 'b']
+# enumerate(dict)
+#
+# for numbers, items in enumerate(dict):
+#     print(numbers)
+#     print(items)
+#
+# c.clear()
 
 #%% Sets
 # A set is a collection which is unordered and unindexed
 
-s = set(['u', 'd', 'u'])
-print(s)
-
-set1 = {'1', '2', 'a', 'b'}
-set1[1]  # error
-set1.add('hotel')
-set1.update(["orange", "mango", "grapes"])  # to add more than one item
-set1.remove('120')  # if the item does not exist, this will raise an error, thats where discard comes in
-set1.discard('120')
-set1.clear()
-set2 = s + set1  # does not work
-set2 = s.union(set(['b', 'u']), s)
-set2
-
-s.intersection(set2)
-set2.difference(s)  # items in set2 but not in set s
-
-u = {'v', 'u'}
-
-u.symmetric_difference(s)  # items in one or the other but not in both
+# s = set(['u', 'd', 'u'])
+# print(s)
+#
+# set1 = {'1', '2', 'a', 'b'}
+# set1[1]  # error
+# set1.add('hotel')
+# set1.update(["orange", "mango", "grapes"])  # to add more than one item
+# set1.remove('120')  # if the item does not exist, this will raise an error, thats where discard comes in
+# set1.discard('120')
+# set1.clear()
+# set2 = s + set1  # does not work
+# set2 = s.union(set(['b', 'u']), s)
+# set2
+#
+# s.intersection(set2)
+# set2.difference(s)  # items in set2 but not in set s
+#
+# u = {'v', 'u'}
+#
+# u.symmetric_difference(s)  # items in one or the other but not in both
 
 # %%
 ## Control Structures
@@ -435,6 +435,9 @@ type(r)
 for i in range(10):
     print(i, end=" ")
 
+
+
+isinstance(45,  (str, int, bool)) # we can pass a tuple of options to isinstance
 for i in range(1, 20):
     if i % 2 == 0:  # % is for modulo
         print("i is even number")
